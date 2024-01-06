@@ -38,6 +38,7 @@ abstract class BaseActivity<VB: ViewBinding, VM: BaseViewModel>: AppCompatActivi
 
         initView()
         addViewModelObservables()
+        setUp(intent.extras)
     }
 
     /**

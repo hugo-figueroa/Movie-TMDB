@@ -33,11 +33,6 @@ class SplashActivity @Inject constructor() :
         transparentStatusBarUI()
     }
 
-    override fun setUp(extras: Bundle?) {
-        super.setUp(extras)
-        addViewModelsObservers()
-    }
-
     private fun addViewModelsObservers() = with(viewModel) {
         observe(onNavigationEvent) { onNavigateToHome() }
     }
