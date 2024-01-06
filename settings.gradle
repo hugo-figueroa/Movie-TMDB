@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "SimpleMovieApp"
 include ':app'
 include ':core'
+include ':networking'
