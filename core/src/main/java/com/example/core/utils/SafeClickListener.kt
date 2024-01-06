@@ -6,7 +6,7 @@ import android.view.View
 /**
  * SafeClickListener
  *
- * @author (c) 2023, Hugo Figueroa
+ * @author (c) 2024, Hugo Figueroa
  * */
 class SafeClickListener(
     private var defaultInterval: Int = 1000,

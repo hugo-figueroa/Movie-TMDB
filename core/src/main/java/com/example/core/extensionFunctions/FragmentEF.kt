@@ -15,7 +15,7 @@ import com.example.core.models.NavigationEvent
 /**
  * FragmentEF
  *
- * @author (c) 2023, Hugo Figueroa
+ * @author (c) 2024, Hugo Figueroa
  */
 
 fun Fragment.taskBeforeBack(unit: () -> Unit) {

@@ -6,7 +6,7 @@ import com.example.core.BuildConfig
 /**
  * EF
  *
- * @author (c) 2023, Hugo Figueroa
+ * @author (c) 2024, Hugo Figueroa
  */
 fun Any.tag(): String = this::class.java.simpleName
 

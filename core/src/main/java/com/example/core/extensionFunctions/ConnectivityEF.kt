@@ -7,7 +7,7 @@ import android.net.NetworkCapabilities
 /**
  * ConnectivityEF
  *
- * @author (c) 2023, Hugo Figueroa
+ * @author (c) 2024, Hugo Figueroa
  * */
 @SuppressLint("MissingPermission", "NewApi")
 fun ConnectivityManager.isNetworkAvailable(): Boolean {

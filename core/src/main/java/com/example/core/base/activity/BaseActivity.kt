@@ -1,8 +1,9 @@
-package com.example.core.base
+package com.example.core.base.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import com.example.core.base.viewModel.BaseViewModel
 
 /**
  * BaseActivity
@@ -56,5 +57,9 @@ abstract class BaseActivity<VB: ViewBinding, VM: BaseViewModel>: AppCompatActivi
      *      observe(foo2()) { someAction2() }
      *  }
      */
+
+    open fun setUp(extras: Bundle?) {
+        viewModel.setUp(extras)
+    }
     protected open fun addViewModelObservables() = Unit
 }

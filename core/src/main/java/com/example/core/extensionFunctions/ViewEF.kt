@@ -6,7 +6,7 @@ import com.example.core.utils.SafeClickListener
 /**
  * ViewEF
  *
- * @author (c) 2023, Hugo Figueroa
+ * @author (c) 2024, Hugo Figueroa
  * */
 fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
     val safeClickListener = SafeClickListener {

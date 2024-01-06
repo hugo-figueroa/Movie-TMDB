@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 /**
  * SingleLiveEvent
  *
- * @author (c) 2023, Hugo Figueroa
+ * @author (c) 2024, Hugo Figueroa
  */
 class SingleLiveEvent<T> : MutableLiveData<T>() {
 
