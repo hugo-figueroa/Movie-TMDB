@@ -1,11 +1,11 @@
 package com.example.simplemovieapp.features.splash.presentation.viewModel
 
 import android.os.Bundle
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.core.base.viewModel.BaseViewModel
-import com.example.core.extensionFunctions.logInfo
 import com.example.core.models.Result
-import com.example.simplemovieapp.features.splash.domain.models.ConfigurationDomain
+import com.example.core.utils.SingleLiveEvent
 import com.example.simplemovieapp.features.splash.domain.useCases.GetConfigurationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -23,6 +23,9 @@ class SplashViewModel @Inject constructor(
     private val getConfigurationUseCase: GetConfigurationUseCase
 ) : BaseViewModel() {
 
+    private val navigateToHomeMLD = SingleLiveEvent<Unit>()
+    val navigateToHome get(): LiveData<Unit> = navigateToHomeMLD
+
     override fun setUp(bundle: Bundle?) {
         super.setUp(bundle)
         getConfiguration()
@@ -30,7 +33,15 @@ class SplashViewModel @Inject constructor(
 
     private fun getConfiguration() {
         viewModelScope.launch {
-            withContext(Dispatchers.IO) { getConfigurationUseCase() }
+            when (withContext(Dispatchers.IO) { getConfigurationUseCase() }) {
+                is Result.Success<Boolean> -> {
+                    navigateToHomeMLD.value = Unit
+                }
+
+                is Result.Error -> {
+                    navigateToHomeMLD.value = Unit
+                }
+            }
         }
     }
 }

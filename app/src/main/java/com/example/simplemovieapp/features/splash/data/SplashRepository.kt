@@ -1,6 +1,5 @@
 package com.example.simplemovieapp.features.splash.data
 
-import com.example.core.extensionFunctions.logInfo
 import com.example.core.models.Result
 import com.example.simplemovieapp.features.splash.data.local.dataSources.interfaces.SplashLocalDataSource
 import com.example.simplemovieapp.features.splash.data.remote.dataSources.interfaces.SplashRemoteDataSource
