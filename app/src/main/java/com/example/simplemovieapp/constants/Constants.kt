@@ -11,6 +11,7 @@ object Constants {
     const val PAGE_KEY = "page"
     const val SHORT_BY_KEY = "sort_by"
     const val WITH_RELEASE_TYPE_KEY = "with_release_type"
+    const val MOVIE_ID = "movieId"
 
     // Values
     const val INCLUDE_ADULT = false

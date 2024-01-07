@@ -2,9 +2,7 @@ package com.example.core.extensionFunctions
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.AnyRes
 import androidx.fragment.app.Fragment
@@ -31,6 +29,16 @@ fun Fragment.taskBeforeBack(unit: () -> Unit) {
 inline fun <reified T : Activity> Fragment.navigateTo(noinline init: Intent.() -> Unit = {}) {
     val intent = Intent(activity, T::class.java)
     intent.init()
+    startActivity(intent)
+}
+
+inline fun <reified T : Activity> Fragment.navigateTo(
+    noinline init: Intent.() -> Unit = {},
+    arguments: Bundle,
+) {
+    val intent = Intent(activity, T::class.java)
+    intent.init()
+    intent.putExtras(arguments)
     startActivity(intent)
 }
 

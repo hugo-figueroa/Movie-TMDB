@@ -13,7 +13,7 @@ import retrofit2.http.Query
  * */
 interface HomeService {
     @GET("movie/popular")
-    fun getPopularMoviesAsync(
+    fun getPopularMovies(
         @Query(Constants.INCLUDE_ADULT_KEY) includeAdult: Boolean = Constants.INCLUDE_ADULT,
         @Query(Constants.INCLUDE_VIDEO_KEY) includeVideo: Boolean = Constants.INCLUDE_VIDEO,
         @Query(Constants.LANGUAGE_KEY) language: String = Constants.LANGUAGE,
@@ -23,7 +23,7 @@ interface HomeService {
     ): Deferred<ListMoviesDto>
 
     @GET("movie/now_playing")
-    fun getNowPlayingMoviesAsync(
+    fun getNowPlayingMovies(
         @Query(Constants.INCLUDE_ADULT_KEY) includeAdult: Boolean = Constants.INCLUDE_ADULT,
         @Query(Constants.INCLUDE_VIDEO_KEY) includeVideo: Boolean = Constants.INCLUDE_VIDEO,
         @Query(Constants.LANGUAGE_KEY) language: String = Constants.LANGUAGE,

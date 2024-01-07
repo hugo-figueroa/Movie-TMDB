@@ -21,7 +21,7 @@ class SplashRemoteDataSourceImpl @Inject constructor(
 ) : SplashRemoteDataSource {
     override suspend fun getConfiguration(): Result<ConfigurationDomain> {
         return try {
-            val response = splashService.getConfigurationAsync(BuildConfig.TMDB_KEY).await()
+            val response = splashService.getConfiguration(BuildConfig.TMDB_KEY).await()
             Result.Success(getConfigurationMapper.map(response))
         } catch (e: Exception) {
             Result.Error(e.getErrorResponse())

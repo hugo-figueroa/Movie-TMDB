@@ -22,7 +22,7 @@ class HomeRemoteDataSourceImpl @Inject constructor(
     override suspend fun getPopularMovies(page: Int): Result<ListMoviesDomain> {
         return try {
             val response =
-                homeService.getPopularMoviesAsync(page = page, apiKey = BuildConfig.TMDB_KEY)
+                homeService.getPopularMovies(page = page, apiKey = BuildConfig.TMDB_KEY)
                     .await()
             Result.Success(getListMoviesMapper.map(response))
         } catch (e: Exception) {
@@ -33,7 +33,7 @@ class HomeRemoteDataSourceImpl @Inject constructor(
     override suspend fun getNowPlayingMovies(page: Int): Result<ListMoviesDomain> {
         return try {
             val response =
-                homeService.getNowPlayingMoviesAsync(page = page, apiKey = BuildConfig.TMDB_KEY)
+                homeService.getNowPlayingMovies(page = page, apiKey = BuildConfig.TMDB_KEY)
                     .await()
             Result.Success(getListMoviesMapper.map(response))
         } catch (e: Exception) {

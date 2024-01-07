@@ -13,5 +13,5 @@ import retrofit2.http.Query
  * */
 interface SplashService {
     @GET("configuration")
-    fun getConfigurationAsync(@Query(Constants.API_KEY) apiKey: String): Deferred<ConfigurationDto>
+    fun getConfiguration(@Query(Constants.API_KEY) apiKey: String): Deferred<ConfigurationDto>
 }

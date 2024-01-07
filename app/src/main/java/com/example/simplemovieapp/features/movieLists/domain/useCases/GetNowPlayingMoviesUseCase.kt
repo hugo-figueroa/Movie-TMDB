@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * GetNowPlayingMoviesUseCase
  *
- * @author (c) 2024,
+ * @author (c) 2024, Hugo Figueroa
  * */
 class GetNowPlayingMoviesUseCase @Inject constructor(
     private val homeRepository: HomeRepository
