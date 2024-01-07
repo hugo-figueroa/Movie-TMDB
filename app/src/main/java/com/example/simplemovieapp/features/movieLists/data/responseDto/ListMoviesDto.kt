@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
  *
  * @author (c) 2024, Hugo Figueroa
  * */
-data class PopularMoviesDto(
+data class ListMoviesDto(
     @SerializedName("page")
     val page: Int,
     @SerializedName("results")

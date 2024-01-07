@@ -6,13 +6,13 @@ import com.example.simplemovieapp.features.movieLists.domain.models.ListMoviesDo
 import javax.inject.Inject
 
 /**
- * GetPopularMoviesUseCase
+ * GetNowPlayingMoviesUseCase
  *
- * @author (c) 2024, Hugo Figueroa
+ * @author (c) 2024,
  * */
-class GetPopularMoviesUseCase @Inject constructor(
+class GetNowPlayingMoviesUseCase @Inject constructor(
     private val homeRepository: HomeRepository
 ) {
     suspend operator fun invoke(page: Int): Result<ListMoviesDomain> =
-        homeRepository.getPopularMovies(page)
+        homeRepository.getNowPlayingMovies(page)
 }

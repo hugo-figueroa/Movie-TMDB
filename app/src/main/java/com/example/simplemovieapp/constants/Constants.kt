@@ -10,10 +10,12 @@ object Constants {
     const val LANGUAGE_KEY = "language"
     const val PAGE_KEY = "page"
     const val SHORT_BY_KEY = "sort_by"
+    const val WITH_RELEASE_TYPE_KEY = "with_release_type"
 
     // Values
     const val INCLUDE_ADULT = false
     const val INCLUDE_VIDEO = false
     const val LANGUAGE = "en-US"
     const val SHORT_BY = "popularity.desc"
+    const val WITH_RELEASE_TYPE = "2|3"
 }

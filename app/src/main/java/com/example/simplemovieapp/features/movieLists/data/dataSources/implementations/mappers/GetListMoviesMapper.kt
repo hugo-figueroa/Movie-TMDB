@@ -1,9 +1,9 @@
 package com.example.simplemovieapp.features.movieLists.data.dataSources.implementations.mappers
 
 import com.example.core.utils.Mapper
-import com.example.simplemovieapp.features.movieLists.data.responseDto.PopularMoviesDto
+import com.example.simplemovieapp.features.movieLists.data.responseDto.ListMoviesDto
 import com.example.simplemovieapp.features.movieLists.domain.models.MovieDomain
-import com.example.simplemovieapp.features.movieLists.domain.models.PopularMoviesDomain
+import com.example.simplemovieapp.features.movieLists.domain.models.ListMoviesDomain
 import javax.inject.Inject
 
 /**
@@ -11,9 +11,9 @@ import javax.inject.Inject
  *
  * @author (c) 2024, Hugo Figueroa
  * */
-class GetPopularMoviesMapper @Inject constructor() : Mapper<PopularMoviesDto, PopularMoviesDomain> {
-    override fun map(input: PopularMoviesDto): PopularMoviesDomain {
-        return PopularMoviesDomain(
+class GetListMoviesMapper @Inject constructor() : Mapper<ListMoviesDto, ListMoviesDomain> {
+    override fun map(input: ListMoviesDto): ListMoviesDomain {
+        return ListMoviesDomain(
             page = input.page,
             results = input.results.map { movieDto ->
                 MovieDomain(
