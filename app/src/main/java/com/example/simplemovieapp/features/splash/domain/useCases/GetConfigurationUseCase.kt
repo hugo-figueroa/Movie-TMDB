@@ -2,7 +2,6 @@ package com.example.simplemovieapp.features.splash.domain.useCases
 
 import com.example.core.models.Result
 import com.example.simplemovieapp.features.splash.data.SplashRepository
-import com.example.simplemovieapp.features.splash.domain.models.ConfigurationDomain
 import javax.inject.Inject
 
 /**
@@ -13,6 +12,6 @@ import javax.inject.Inject
 class GetConfigurationUseCase @Inject constructor(
     private val splashRepository: SplashRepository
 ) {
-    suspend operator fun invoke(): Result<ConfigurationDomain> =
+    suspend operator fun invoke(): Result<Boolean> =
         splashRepository.getConfiguration()
 }

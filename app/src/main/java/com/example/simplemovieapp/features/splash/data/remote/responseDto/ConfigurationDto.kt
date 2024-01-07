@@ -1,4 +1,4 @@
-package com.example.simplemovieapp.features.splash.data.responseDto
+package com.example.simplemovieapp.features.splash.data.remote.responseDto
 
 import com.google.gson.annotations.SerializedName
 

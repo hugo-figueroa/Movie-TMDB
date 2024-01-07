@@ -30,13 +30,7 @@ class SplashViewModel @Inject constructor(
 
     private fun getConfiguration() {
         viewModelScope.launch {
-            when (val resultCall = withContext(Dispatchers.IO) { getConfigurationUseCase() }) {
-                is Result.Success<ConfigurationDomain> -> {
-                    logInfo(resultCall.data.toString())
-                }
-
-                is Result.Error -> {}
-            }
+            withContext(Dispatchers.IO) { getConfigurationUseCase() }
         }
     }
 }

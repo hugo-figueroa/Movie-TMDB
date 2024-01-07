@@ -1,11 +1,11 @@
-package com.example.simplemovieapp.features.splash.data.dataSources.implementations
+package com.example.simplemovieapp.features.splash.data.remote.dataSources.implementations
 
 import com.example.core.models.Result
 import com.example.simplemovieapp.BuildConfig
 import com.example.simplemovieapp.extensionFunction.getErrorResponse
-import com.example.simplemovieapp.features.splash.data.apiServices.SplashService
-import com.example.simplemovieapp.features.splash.data.dataSources.implementations.mappers.GetConfigurationMapper
-import com.example.simplemovieapp.features.splash.data.dataSources.interfaces.SplashRemoteDataSource
+import com.example.simplemovieapp.features.splash.data.remote.apiServices.SplashService
+import com.example.simplemovieapp.features.splash.data.remote.dataSources.implementations.mappers.GetConfigurationMapper
+import com.example.simplemovieapp.features.splash.data.remote.dataSources.interfaces.SplashRemoteDataSource
 import com.example.simplemovieapp.features.splash.domain.models.ConfigurationDomain
 import java.lang.Exception
 import javax.inject.Inject

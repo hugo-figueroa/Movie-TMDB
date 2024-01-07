@@ -3,7 +3,7 @@ package com.example.simplemovieapp.features.splash.di
 import com.example.networking.MovieTMDBNetworking
 import com.example.networking.constants.NetworkConstants
 import com.example.simplemovieapp.BuildConfig
-import com.example.simplemovieapp.features.splash.data.apiServices.SplashService
+import com.example.simplemovieapp.features.splash.data.remote.apiServices.SplashService
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module

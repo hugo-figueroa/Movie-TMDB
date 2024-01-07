@@ -1,7 +1,9 @@
 package com.example.simplemovieapp.features.splash.di
 
-import com.example.simplemovieapp.features.splash.data.dataSources.implementations.SplashRemoteDataSourceImpl
-import com.example.simplemovieapp.features.splash.data.dataSources.interfaces.SplashRemoteDataSource
+import com.example.simplemovieapp.features.splash.data.local.dataSources.implementations.SplashLocalDataSourceImpl
+import com.example.simplemovieapp.features.splash.data.local.dataSources.interfaces.SplashLocalDataSource
+import com.example.simplemovieapp.features.splash.data.remote.dataSources.implementations.SplashRemoteDataSourceImpl
+import com.example.simplemovieapp.features.splash.data.remote.dataSources.interfaces.SplashRemoteDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -19,4 +21,9 @@ abstract class SplashDataSourceModule {
     abstract fun provideSplashRemoteDataSource(
         splashRemoteDataSourceImpl: SplashRemoteDataSourceImpl
     ): SplashRemoteDataSource
+
+    @Binds
+    abstract fun provideSplashLocalDataSource(
+        splashLocalDataSourceImpl: SplashLocalDataSourceImpl
+    ): SplashLocalDataSource
 }

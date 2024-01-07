@@ -1,7 +1,7 @@
-package com.example.simplemovieapp.features.splash.data.dataSources.implementations.mappers
+package com.example.simplemovieapp.features.splash.data.remote.dataSources.implementations.mappers
 
 import com.example.core.utils.Mapper
-import com.example.simplemovieapp.features.splash.data.responseDto.ConfigurationDto
+import com.example.simplemovieapp.features.splash.data.remote.responseDto.ConfigurationDto
 import com.example.simplemovieapp.features.splash.domain.models.ConfigurationDomain
 import com.example.simplemovieapp.features.splash.domain.models.ImagesDomain
 import javax.inject.Inject
