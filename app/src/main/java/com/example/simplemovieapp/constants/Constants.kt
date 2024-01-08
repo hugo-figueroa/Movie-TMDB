@@ -19,4 +19,6 @@ object Constants {
     const val LANGUAGE = "en-US"
     const val SHORT_BY = "popularity.desc"
     const val WITH_RELEASE_TYPE = "2|3"
+
+    const val GENERIC_DATA_BASE_ERROR = "Error when get information from database"
 }

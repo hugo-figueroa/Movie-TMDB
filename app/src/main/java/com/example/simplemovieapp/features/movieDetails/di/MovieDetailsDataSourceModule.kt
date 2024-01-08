@@ -1,6 +1,8 @@
 package com.example.simplemovieapp.features.movieDetails.di
 
+import com.example.simplemovieapp.features.movieDetails.data.dataSources.implementations.MovieDetailsLocalDataSourceImpl
 import com.example.simplemovieapp.features.movieDetails.data.dataSources.implementations.MovieDetailsRemoteDataSourceImpl
+import com.example.simplemovieapp.features.movieDetails.data.dataSources.interfaces.MovieDetailsLocalDataSource
 import com.example.simplemovieapp.features.movieDetails.data.dataSources.interfaces.MovieDetailsRemoteDataSource
 import dagger.Binds
 import dagger.Module
@@ -19,4 +21,9 @@ abstract class MovieDetailsDataSourceModule {
     abstract fun provideMovieDetailsRemoteDataSource(
         movieDetailsRemoteDataSourceImpl: MovieDetailsRemoteDataSourceImpl
     ): MovieDetailsRemoteDataSource
+
+    @Binds
+    abstract fun provideMovieDetailsLocalDataSource(
+        movieDetailsLocalDataSourceImpl: MovieDetailsLocalDataSourceImpl
+    ): MovieDetailsLocalDataSource
 }
