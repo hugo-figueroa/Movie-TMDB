@@ -23,8 +23,9 @@ class SplashRepository @Inject constructor(
             is Result.Success<ConfigurationDomain> -> {
                 splashLocalDataSource.saveBaseImageUrl(resultCall.data.images.baseImagesUrl)
             }
+
             is Result.Error -> {
-                Result.Error(resultCall.message)
+                resultCall
             }
         }
     }

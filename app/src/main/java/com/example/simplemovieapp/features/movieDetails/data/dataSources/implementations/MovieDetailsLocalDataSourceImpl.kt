@@ -23,7 +23,7 @@ class MovieDetailsLocalDataSourceImpl @Inject constructor(
             favoritesMoviesDao.insertMovieToFavorites(saveMovieToFavoritesMapper.map(movie))
             Result.Success(Unit)
         } catch (e: SQLiteException) {
-            Result.Error(e.getErrorResponse())
+            Result.Error(e)
         }
     }
 
@@ -32,7 +32,7 @@ class MovieDetailsLocalDataSourceImpl @Inject constructor(
             favoritesMoviesDao.removeMovieFromFavorites(movieId)
             Result.Success(Unit)
         } catch (e: SQLiteException) {
-            Result.Error(e.getErrorResponse())
+            Result.Error(e)
         }
     }
 
@@ -45,7 +45,7 @@ class MovieDetailsLocalDataSourceImpl @Inject constructor(
                 Result.Success(false)
             }
         } catch (e: SQLiteException) {
-            Result.Error(e.getErrorResponse())
+            Result.Error(e)
         }
     }
 }

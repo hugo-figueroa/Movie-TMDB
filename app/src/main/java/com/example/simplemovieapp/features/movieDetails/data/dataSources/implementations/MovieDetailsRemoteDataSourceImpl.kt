@@ -26,7 +26,7 @@ class MovieDetailsRemoteDataSourceImpl @Inject constructor(
                     .await()
             Result.Success(getMovieDetailsMapper.map(response))
         } catch (e: Exception) {
-            Result.Error(e.getErrorResponse())
+            Result.Error(e)
         }
     }
 

@@ -26,7 +26,7 @@ class HomeRemoteDataSourceImpl @Inject constructor(
                     .await()
             Result.Success(getListMoviesMapper.map(response))
         } catch (e: Exception) {
-            Result.Error(e.getErrorResponse())
+            Result.Error(e)
         }
     }
 
@@ -37,7 +37,7 @@ class HomeRemoteDataSourceImpl @Inject constructor(
                     .await()
             Result.Success(getListMoviesMapper.map(response))
         } catch (e: Exception) {
-            Result.Error(e.getErrorResponse())
+            Result.Error(e)
         }
     }
 }

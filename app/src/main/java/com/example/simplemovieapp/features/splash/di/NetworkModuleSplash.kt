@@ -4,8 +4,8 @@ import com.example.networking.MovieTMDBNetworking
 import com.example.networking.constants.NetworkConstants
 import com.example.simplemovieapp.BuildConfig
 import com.example.simplemovieapp.features.splash.data.remote.apiServices.SplashService
+import com.example.simplemovieapp.interceptors.ErrorsCoroutinesCallAdapterFactory
 import com.google.gson.Gson
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,7 +27,7 @@ object NetworkModuleSplash {
             .Builder(NetworkConstants.BASE_URL)
             .gson(gson)
             .enableDebugLogs(BuildConfig.DEBUG)
-            .callAdapterFactory(CoroutineCallAdapterFactory())
+            .callAdapterFactory(ErrorsCoroutinesCallAdapterFactory())
             .buildRetrofitClient()
             .create(SplashService::class.java)
     }

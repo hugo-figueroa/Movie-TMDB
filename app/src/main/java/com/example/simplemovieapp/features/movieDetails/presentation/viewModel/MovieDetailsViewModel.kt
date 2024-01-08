@@ -5,6 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.core.base.viewModel.BaseViewModel
 import com.example.core.extensionFunctions.logInfo
 import com.example.core.models.Result
+import com.example.networking.exceptions.NoInternetException
+import com.example.networking.exceptions.NotFoundException
+import com.example.networking.exceptions.ServerErrorException
+import com.example.networking.exceptions.UnknownErrorException
 import com.example.simplemovieapp.constants.Constants
 import com.example.simplemovieapp.features.movieDetails.domain.models.MovieDetailsDomain
 import com.example.simplemovieapp.features.movieDetails.domain.useCases.GetMovieDetailsUseCase
@@ -41,7 +45,27 @@ class MovieDetailsViewModel @Inject constructor(
                 }
 
                 is Result.Error -> {
+                    when (resultCall.throwable) {
+                        is NoInternetException -> {
+                            // Internet Error
+                        }
 
+                        is NotFoundException -> {
+                            // Not Found Information
+                        }
+
+                        is ServerErrorException -> {
+                            // Server Error
+                        }
+
+                        is UnknownErrorException -> {
+                            // Unknown Error
+                        }
+
+                        else -> {
+                            // Unknown Error
+                        }
+                    }
                 }
             }
         }

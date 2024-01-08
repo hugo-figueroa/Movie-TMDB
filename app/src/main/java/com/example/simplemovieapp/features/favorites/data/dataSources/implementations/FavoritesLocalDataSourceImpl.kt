@@ -25,10 +25,10 @@ class FavoritesLocalDataSourceImpl @Inject constructor(
             if (favoritesResult != null) {
                 Result.Success(favoritesResult.map { getFavoritesMapper.map(it) })
             } else {
-                Result.Error(DataBaseException().getErrorResponse())
+                Result.Error(DataBaseException())
             }
         } catch (e: SQLiteException) {
-            Result.Error(e.getErrorResponse())
+            Result.Error(e)
         }
     }
 
@@ -37,7 +37,7 @@ class FavoritesLocalDataSourceImpl @Inject constructor(
             favoritesMoviesDao.removeMovieFromFavorites(movieId)
             Result.Success(Unit)
         } catch (e: SQLiteException) {
-            Result.Error(e.getErrorResponse())
+            Result.Error(e)
         }
     }
 }

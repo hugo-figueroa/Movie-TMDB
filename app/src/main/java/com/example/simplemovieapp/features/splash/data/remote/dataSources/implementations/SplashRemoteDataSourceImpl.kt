@@ -24,7 +24,7 @@ class SplashRemoteDataSourceImpl @Inject constructor(
             val response = splashService.getConfiguration(BuildConfig.TMDB_KEY).await()
             Result.Success(getConfigurationMapper.map(response))
         } catch (e: Exception) {
-            Result.Error(e.getErrorResponse())
+            Result.Error(e)
         }
     }
 }
