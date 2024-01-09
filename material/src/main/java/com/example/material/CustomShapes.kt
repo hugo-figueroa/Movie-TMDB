@@ -12,5 +12,6 @@ import androidx.compose.ui.unit.dp
  * */
 @Immutable
 data class CustomShapes(
-    val roundedCorner8: Shape = RoundedCornerShape(size = 0.dp)
+    val roundedCorner8: Shape = RoundedCornerShape(size = 0.dp),
+    val roundedCorner16: Shape = RoundedCornerShape(size = 0.dp)
 )

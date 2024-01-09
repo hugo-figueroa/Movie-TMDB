@@ -6,5 +6,5 @@ package com.example.simplemovieapp.features.splash.domain.models
  * @author (c) 2024, Hugo Figueroa
  * */
 data class ImagesDomain(
-    val baseImagesUrl: String
+    val secureBaseUrl: String
 )

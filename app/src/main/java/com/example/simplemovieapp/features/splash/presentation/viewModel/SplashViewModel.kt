@@ -23,8 +23,8 @@ class SplashViewModel @Inject constructor(
     private val getConfigurationUseCase: GetConfigurationUseCase
 ) : BaseViewModel() {
 
-    private val navigateToHomeMLD = SingleLiveEvent<Unit>()
-    val navigateToHome get(): LiveData<Unit> = navigateToHomeMLD
+    private val navigateToMovieListMLD = SingleLiveEvent<Unit>()
+    val navigateToMovieList get(): LiveData<Unit> = navigateToMovieListMLD
 
     override fun setUp(bundle: Bundle?) {
         super.setUp(bundle)
@@ -35,11 +35,11 @@ class SplashViewModel @Inject constructor(
         viewModelScope.launch {
             when (withContext(Dispatchers.IO) { getConfigurationUseCase() }) {
                 is Result.Success<Boolean> -> {
-                    navigateToHomeMLD.value = Unit
+                    navigateToMovieListMLD.value = Unit
                 }
 
                 is Result.Error -> {
-                    navigateToHomeMLD.value = Unit
+                    navigateToMovieListMLD.value = Unit
                 }
             }
         }

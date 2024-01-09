@@ -6,32 +6,32 @@ import androidx.fragment.app.viewModels
 import com.example.core.base.fragment.BaseFragment
 import com.example.core.extensionFunctions.viewBinding
 import com.example.material.MovieTHDBTheme
-import com.example.simplemovieapp.databinding.FragmentHomeBinding
-import com.example.simplemovieapp.features.movieLists.presentation.viewModel.HomeViewModel
+import com.example.simplemovieapp.databinding.FragmentPopularMoviesBinding
+import com.example.simplemovieapp.features.movieLists.presentation.viewModel.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * HomeFragment
+ * PopularMoviesFragment
  *
  * @author (c) 2024, Hugo Figueroa
  * */
 @AndroidEntryPoint
-class HomeFragment() : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
+class PopularMoviesFragment() : BaseFragment<FragmentPopularMoviesBinding, MovieListViewModel>() {
 
-    override val viewModel: HomeViewModel by viewModels()
+    override val viewModel: MovieListViewModel by viewModels()
 
-    override val binding: FragmentHomeBinding by viewBinding {
-        FragmentHomeBinding.inflate(
+    override val binding: FragmentPopularMoviesBinding by viewBinding {
+        FragmentPopularMoviesBinding.inflate(
             layoutInflater
         )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.homeContent.apply {
+        binding.popularMoviesContent.apply {
             setContent {
                 MovieTHDBTheme {
-                    HomeScreen(viewModel)
+                    MovieListScreen(viewModel)
                 }
             }
         }

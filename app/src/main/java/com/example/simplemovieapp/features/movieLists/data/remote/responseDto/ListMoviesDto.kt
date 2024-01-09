@@ -1,4 +1,4 @@
-package com.example.simplemovieapp.features.movieLists.data.responseDto
+package com.example.simplemovieapp.features.movieLists.data.remote.responseDto
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,25 +1,34 @@
 package com.example.simplemovieapp.features.movieLists.presentation.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconToggleButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -29,21 +38,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.material.MovieTHDBTheme
 import com.example.material.TMDBTheme
+import com.example.networking.exceptions.NoInternetException
+import com.example.networking.exceptions.NotFoundException
+import com.example.networking.exceptions.ServerErrorException
+import com.example.networking.exceptions.UnknownErrorException
 import com.example.simplemovieapp.R
 import com.example.simplemovieapp.features.movieLists.domain.models.MovieDomain
-import com.example.simplemovieapp.features.movieLists.presentation.viewModel.HomeUiState
-import com.example.simplemovieapp.features.movieLists.presentation.viewModel.HomeViewModel
+import com.example.simplemovieapp.features.movieLists.presentation.viewModel.MovieListUiState
+import com.example.simplemovieapp.features.movieLists.presentation.viewModel.MovieListViewModel
 
 /**
  * MovieListScreen
@@ -52,26 +67,71 @@ import com.example.simplemovieapp.features.movieLists.presentation.viewModel.Hom
  * */
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel) {
-    val uiState by viewModel.movieList.observeAsState()
+fun MovieListScreen(viewModel: MovieListViewModel) {
+    val uiState by viewModel.popularMovieList.observeAsState()
     when (uiState) {
-        is HomeUiState.Loading, null -> {
-            CircularProgressIndicator()
+        is MovieListUiState.Loading, null -> {
+            Row(
+                modifier = Modifier.fillMaxSize(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .size(64.dp),
+                    color = TMDBTheme.colors.primary,
+                    backgroundColor = TMDBTheme.colors.orangeLight,
+                    strokeWidth = 6.dp,
+                    strokeCap = StrokeCap.Round
+                )
+            }
+
         }
 
-        is HomeUiState.Content -> {
-            MovieListWithToggle(listMovies = (uiState as HomeUiState.Content).data)
+        is MovieListUiState.Content -> {
+            MovieListWithToggle(
+                viewModel = viewModel
+            )
         }
 
-        is HomeUiState.Error -> {
+        is MovieListUiState.Error -> {
+            when ((uiState as MovieListUiState.Error).error) {
+                is NoInternetException -> {
+                    // Internet Error
+                    //TODO: Add design for error
+                }
 
+                is NotFoundException -> {
+                    // Not Found Information
+                    //TODO: Add design for error
+                }
+
+                is ServerErrorException -> {
+                    // Server Error
+                    //TODO: Add design for error
+                }
+
+                is UnknownErrorException -> {
+                    // Unknown Error
+                    //TODO: Add design for error
+                }
+
+                else -> {
+                    // Unknown Error
+                    //TODO: Add design for error
+                }
+            }
         }
     }
 }
 
 @Composable
-fun MovieListWithToggle(listMovies: List<MovieDomain>) {
+fun MovieListWithToggle(viewModel: MovieListViewModel) {
     var isGrid by remember { mutableStateOf(false) }
+
+    val scrollListState = rememberLazyListState()
+    val scrollGridState = rememberLazyGridState()
+
     Column(
         modifier = Modifier
             .background(TMDBTheme.colors.surfaceLight)
@@ -103,28 +163,109 @@ fun MovieListWithToggle(listMovies: List<MovieDomain>) {
             }
         }
 
+        val listMovies = remember { mutableStateOf(viewModel.popularMoviesList) }
+
         if (isGrid) {
-            GridList(items = listMovies)
+            GridList(
+                viewModel = viewModel,
+                listMovies = listMovies,
+                scrollGridState = scrollGridState
+            )
         } else {
-            VerticalList(items = listMovies)
+            VerticalList(
+                viewModel = viewModel,
+                listMovies = listMovies,
+                scrollListState = scrollListState
+            )
         }
     }
 }
 
 @Composable
-fun VerticalList(items: List<MovieDomain>) {
-    LazyColumn {
-        items(items) { item ->
-            MovieListItem("https://image.tmdb.org/t/p/w500", item)
+fun VerticalList(
+    viewModel: MovieListViewModel,
+    listMovies: MutableState<MutableList<MovieDomain>>,
+    scrollListState: LazyListState
+) {
+    var isLoading by remember { mutableStateOf(false) }
+    isLoading = false
+
+    LazyColumn(
+        state = scrollListState
+    ) {
+        items(listMovies.value) { movie ->
+            MovieListItem(viewModel.baseImageUrl.plus("w500"), movie)
+            if (movie == listMovies.value.last()) {
+                if (!isLoading) {
+                    LaunchedEffect(key1 = Unit) {
+                        isLoading = true
+                        viewModel.popularMoviesPage += 1
+                        viewModel.fetchPopularMovies(viewModel.popularMoviesPage)
+                    }
+                }
+            }
+        }
+        item {
+            if (isLoading) {
+                Row(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .size(32.dp),
+                        color = TMDBTheme.colors.primary,
+                        backgroundColor = TMDBTheme.colors.orangeLight,
+                        strokeCap = StrokeCap.Round
+                    )
+                }
+            }
         }
     }
 }
 
 @Composable
-fun GridList(items: List<MovieDomain>) {
-    LazyVerticalGrid(columns = GridCells.Fixed(2)) {
-        items(items) { item ->
-            MovieGridItem("https://image.tmdb.org/t/p/w500", item)
+fun GridList(
+    viewModel: MovieListViewModel,
+    listMovies: MutableState<MutableList<MovieDomain>>,
+    scrollGridState: LazyGridState
+) {
+    var isLoading by remember { mutableStateOf(false) }
+    isLoading = false
+
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        state = scrollGridState
+    ) {
+        items(listMovies.value) { movie ->
+            MovieGridItem(viewModel.baseImageUrl.plus("w500"), movie)
+            if (movie == listMovies.value.last()) {
+                if (!isLoading) {
+                    LaunchedEffect(key1 = Unit) {
+                        isLoading = true
+                        viewModel.popularMoviesPage += 1
+                        viewModel.fetchPopularMovies(viewModel.popularMoviesPage)
+                    }
+                }
+            }
+        }
+        item {
+            if (isLoading) {
+                Row(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .size(32.dp),
+                        color = TMDBTheme.colors.primary,
+                        backgroundColor = TMDBTheme.colors.orangeLight,
+                        strokeCap = StrokeCap.Round
+                    )
+                }
+            }
         }
     }
 }
@@ -168,7 +309,10 @@ fun MovieListItem(imageBaseUrl: String, item: MovieDomain) {
                         fontWeight = FontWeight.Bold,
                         maxLines = 2
                     )
-                    Text(text = item.overview, maxLines = 2)
+                    Text(
+                        text = item.overview, maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
                 }
             }
 
@@ -179,7 +323,7 @@ fun MovieListItem(imageBaseUrl: String, item: MovieDomain) {
                 val posterUrl = imageBaseUrl.plus(item.posterPath)
                 AsyncImage(
                     model = posterUrl,
-                    placeholder = painterResource(R.drawable.poster),
+                    placeholder = painterResource(R.drawable.poster_placeholder),
                     contentDescription = item.title,
                     contentScale = ContentScale.Fit,
                     modifier = Modifier
@@ -209,7 +353,7 @@ fun MovieGridItem(imageBaseUrl: String, item: MovieDomain) {
             val posterUrl = imageBaseUrl.plus(item.posterPath)
             AsyncImage(
                 model = posterUrl,
-                placeholder = painterResource(R.drawable.poster),
+                placeholder = painterResource(R.drawable.poster_placeholder),
                 contentDescription = item.title,
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
@@ -231,11 +375,35 @@ fun MovieGridItem(imageBaseUrl: String, item: MovieDomain) {
                 maxLines = 3,
                 minLines = 3
             )
-            Text(
+
+            Card(
                 modifier = Modifier
+                    .height(50.dp)
+                    .width(100.dp)
                     .padding(TMDBTheme.grids.grid1),
-                text = item.voteAverage.toString(), maxLines = 2
-            )
+                elevation = TMDBTheme.grids.grid05,
+                shape = TMDBTheme.customShapes.roundedCorner16,
+                backgroundColor = TMDBTheme.colors.grayLight
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        modifier = Modifier.size(20.dp),
+                        painter = painterResource(id = R.drawable.star),
+                        contentDescription = "",
+                        tint = TMDBTheme.colors.yellowPrimary
+                    )
+                    Text(
+                        modifier = Modifier
+                            .padding(TMDBTheme.grids.grid1),
+                        text = String.format("%.1f", item.voteAverage), maxLines = 2,
+                        fontWeight = FontWeight.Bold,
+                        color = TMDBTheme.colors.secondary
+                    )
+                }
+            }
         }
     }
 }
@@ -283,52 +451,5 @@ fun previewMovieGridItem() {
                 voteCount = 625
             )
         )
-    }
-}
-
-@Preview
-@Composable
-fun previewMovieList() {
-    val listMovies = listOf(
-        MovieDomain(
-            id = 1029575,
-            language = "en",
-            originalTitle = "The Family Plan",
-            overview = "Dan Morgan is many things: a devoted husband, a loving father, a celebrated car salesman. He's also a former assassin. And when his past catches up to his present, he's forced to take his unsuspecting family on a road trip unlike any other.",
-            popularity = 4320.505,
-            posterPath = "a6syn9qcU4a54Lmi3JoIr1XvhFU.jpg",
-            releaseDate = "2023-12-14",
-            title = "The Family Plan",
-            video = false,
-            voteAverage = 7.395,
-            voteCount = 625
-        ), MovieDomain(
-            id = 1029575,
-            language = "en",
-            originalTitle = "The Family Plan",
-            overview = "Dan Morgan is many things: a devoted husband, a loving father, a celebrated car salesman. He's also a former assassin. And when his past catches up to his present, he's forced to take his unsuspecting family on a road trip unlike any other.",
-            popularity = 4320.505,
-            posterPath = "a6syn9qcU4a54Lmi3JoIr1XvhFU.jpg",
-            releaseDate = "2023-12-14",
-            title = "The Family Plan",
-            video = false,
-            voteAverage = 7.395,
-            voteCount = 625
-        ), MovieDomain(
-            id = 1029575,
-            language = "en",
-            originalTitle = "The Family Plan",
-            overview = "Dan Morgan is many things: a devoted husband, a loving father, a celebrated car salesman. He's also a former assassin. And when his past catches up to his present, he's forced to take his unsuspecting family on a road trip unlike any other.",
-            popularity = 4320.505,
-            posterPath = "a6syn9qcU4a54Lmi3JoIr1XvhFU.jpg",
-            releaseDate = "2023-12-14",
-            title = "The Family Plan",
-            video = false,
-            voteAverage = 7.395,
-            voteCount = 625
-        )
-    )
-    MovieTHDBTheme {
-        MovieListWithToggle(listMovies = listMovies)
     }
 }

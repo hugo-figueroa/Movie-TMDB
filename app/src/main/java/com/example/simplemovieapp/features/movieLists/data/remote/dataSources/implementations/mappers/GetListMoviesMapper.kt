@@ -1,7 +1,7 @@
-package com.example.simplemovieapp.features.movieLists.data.dataSources.implementations.mappers
+package com.example.simplemovieapp.features.movieLists.data.remote.dataSources.implementations.mappers
 
 import com.example.core.utils.Mapper
-import com.example.simplemovieapp.features.movieLists.data.responseDto.ListMoviesDto
+import com.example.simplemovieapp.features.movieLists.data.remote.responseDto.ListMoviesDto
 import com.example.simplemovieapp.features.movieLists.domain.models.MovieDomain
 import com.example.simplemovieapp.features.movieLists.domain.models.ListMoviesDomain
 import javax.inject.Inject

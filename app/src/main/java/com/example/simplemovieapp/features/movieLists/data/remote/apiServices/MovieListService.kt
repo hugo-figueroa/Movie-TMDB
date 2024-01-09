@@ -1,17 +1,17 @@
-package com.example.simplemovieapp.features.movieLists.data.apiServices
+package com.example.simplemovieapp.features.movieLists.data.remote.apiServices
 
 import com.example.simplemovieapp.constants.Constants
-import com.example.simplemovieapp.features.movieLists.data.responseDto.ListMoviesDto
+import com.example.simplemovieapp.features.movieLists.data.remote.responseDto.ListMoviesDto
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
- * HomeService
+ * MovieListService
  *
  * @author (c) 2024, Hugo Figueroa
  * */
-interface HomeService {
+interface MovieListService {
     @GET("movie/popular")
     fun getPopularMovies(
         @Query(Constants.INCLUDE_ADULT_KEY) includeAdult: Boolean = Constants.INCLUDE_ADULT,

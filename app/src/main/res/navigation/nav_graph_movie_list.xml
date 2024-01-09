@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph_home">
+    android:id="@+id/nav_graph_movie_list">
 
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.simplemovieapp.features.movieLists.presentation.view.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/popularMoviesFragment"
+        android:name="com.example.simplemovieapp.features.movieLists.presentation.view.PopularMoviesFragment"
+        android:label="fragment_popular_movies"
+        tools:layout="@layout/fragment_popular_movies" />
 
     <fragment
         android:id="@+id/movieDetailsFragment"

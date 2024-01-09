@@ -8,6 +8,6 @@ import com.google.gson.annotations.SerializedName
  * @author (c) 2024, Hugo Figueroa
  * */
 data class ImagesDto(
-    @SerializedName("base_url")
-    val baseImagesUrl: String
+    @SerializedName("secure_base_url")
+    val secureBaseUrl: String
 )

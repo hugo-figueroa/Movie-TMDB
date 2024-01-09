@@ -15,7 +15,7 @@ class GetConfigurationMapper @Inject constructor() : Mapper<ConfigurationDto, Co
     override fun map(input: ConfigurationDto): ConfigurationDomain {
         return ConfigurationDomain(
             ImagesDomain(
-                input.images.baseImagesUrl
+                input.images.secureBaseUrl
             )
         )
     }

@@ -21,7 +21,7 @@ class SplashRepository @Inject constructor(
         return when (val resultCall =
             withContext(Dispatchers.IO) { splashRemoteDataSource.getConfiguration() }) {
             is Result.Success<ConfigurationDomain> -> {
-                splashLocalDataSource.saveBaseImageUrl(resultCall.data.images.baseImagesUrl)
+                splashLocalDataSource.saveBaseImageUrl(resultCall.data.images.secureBaseUrl)
             }
 
             is Result.Error -> {

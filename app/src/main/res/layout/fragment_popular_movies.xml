@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.movieLists.presentation.view.HomeFragment">
+    tools:context=".features.movieLists.presentation.view.PopularMoviesFragment">
 
     <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/homeContent"
+        android:id="@+id/popularMoviesContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

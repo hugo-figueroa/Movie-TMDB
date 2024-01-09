@@ -8,17 +8,17 @@ import com.example.core.base.activity.BaseActivity
 import com.example.core.base.viewModel.EmptyViewModel
 import com.example.core.extensionFunctions.viewBinding
 import com.example.simplemovieapp.R
-import com.example.simplemovieapp.databinding.ActivityHomeBinding
+import com.example.simplemovieapp.databinding.ActivityMovieListBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeActivity @Inject constructor() : BaseActivity<ActivityHomeBinding, EmptyViewModel>() {
+class MovieListActivity @Inject constructor() : BaseActivity<ActivityMovieListBinding, EmptyViewModel>() {
 
     override val viewModel: EmptyViewModel by viewModels()
 
-    override val binding: ActivityHomeBinding by viewBinding(ActivityHomeBinding::inflate)
+    override val binding: ActivityMovieListBinding by viewBinding(ActivityMovieListBinding::inflate)
 
     override fun setUp(extras: Bundle?) {
         super.setUp(extras)
@@ -28,11 +28,11 @@ class HomeActivity @Inject constructor() : BaseActivity<ActivityHomeBinding, Emp
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.homeContainer) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.movieListContainer) as NavHostFragment
         val navController = navHostFragment.navController
         val graphInflater = navController.navInflater
-        val navGraph = graphInflater.inflate(R.navigation.nav_graph_home)
-        navGraph.setStartDestination(R.id.homeFragment)
+        val navGraph = graphInflater.inflate(R.navigation.nav_graph_movie_list)
+        navGraph.setStartDestination(R.id.popularMoviesFragment)
         navController.setGraph(navGraph, intent.extras)
         val navView: BottomNavigationView = findViewById(R.id.bottomNavigation)
         navView.setupWithNavController(navController)

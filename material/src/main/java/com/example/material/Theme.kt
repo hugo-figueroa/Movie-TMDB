@@ -33,6 +33,7 @@ private val Grid60 = 60.dp
 private val Grid64 = 64.dp
 
 private val RoundedCorner8 = 8.dp
+private val RoundedCorner16 = 16.dp
 
 private val LocalTMDBColors = staticCompositionLocalOf<TMDBColors> {
     error("No Colors provided")
@@ -54,7 +55,11 @@ private val lightColors = TMDBColors(
     primary = orange500,
     primaryVariant = orange700,
     secondary = gray800,
-    surfaceLight = gray100
+    surfaceLight = gray100,
+    primarySurface = whiteNeutral,
+    orangeLight = orange200,
+    grayLight = gray400,
+    yellowPrimary = yellow700
 )
 
 private val grids = Grid(
@@ -83,6 +88,12 @@ val customShapes = CustomShapes(
         topEnd = RoundedCorner8,
         bottomStart = RoundedCorner8,
         bottomEnd = RoundedCorner8
+    ),
+    roundedCorner16 = RoundedCornerShape(
+        topStart = RoundedCorner16,
+        topEnd = RoundedCorner16,
+        bottomStart = RoundedCorner16,
+        bottomEnd = RoundedCorner16
     )
 )
 
