@@ -20,11 +20,13 @@
         <activity
             android:name=".features.movieDetails.presentation.view.MovieDetaisActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/TMDB.NoActionBar" />
         <activity
             android:name=".features.splash.presentation.view.SplashActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/TMDB.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,7 +36,8 @@
         <activity
             android:name=".features.movieLists.presentation.view.HomeActivity"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/TMDB.NoActionBar" />
     </application>
 
 </manifest>

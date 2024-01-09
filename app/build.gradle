@@ -63,11 +63,17 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig true
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion "$composeVersion"
     }
 }
 
 dependencies {
     implementation project(':core')
+    implementation project(':material')
     implementation project(':networking')
 
     implementation "androidx.core:core-ktx:$coreKtxVersion"
@@ -81,6 +87,13 @@ dependencies {
     // Dagger Hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
+
+    // Integration with activities
+    api "androidx.activity:activity-compose:$activityCompose"
+
+    // Integration with ViewModels
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$viewmodelCompose"
+    implementation "androidx.compose.runtime:runtime-livedata:$composeVersion"
 
     // Retrofit
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofitCorutinesVersion"

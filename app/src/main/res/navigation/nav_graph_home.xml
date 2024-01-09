@@ -2,8 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph_home"
-    app:startDestination="@id/homeFragment">
+    android:id="@+id/nav_graph_home">
 
 
     <fragment
@@ -11,5 +10,23 @@
         android:name="com.example.simplemovieapp.features.movieLists.presentation.view.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.example.simplemovieapp.features.movieDetails.presentation.view.MovieDetailsFragment"
+        android:label="fragment_movie_details"
+        tools:layout="@layout/fragment_movie_details" />
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.simplemovieapp.features.movieDetails.presentation.view.MovieDetailsFragment"
+        android:label="fragment_movie_details"
+        tools:layout="@layout/fragment_movie_details" />
+
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.simplemovieapp.features.movieDetails.presentation.view.MovieDetailsFragment"
+        android:label="fragment_movie_details"
+        tools:layout="@layout/fragment_movie_details" />
 
 </navigation>

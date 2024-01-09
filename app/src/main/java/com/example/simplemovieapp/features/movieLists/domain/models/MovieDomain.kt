@@ -16,5 +16,5 @@ data class MovieDomain(
     val title: String,
     val video: Boolean,
     val voteAverage: Double,
-    val voteCount: String
+    val voteCount: Int
 )
