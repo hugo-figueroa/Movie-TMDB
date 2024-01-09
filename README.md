@@ -1,9 +1,9 @@
 # Movie TMDB
-A simple movie app that uses the [TMDB Api](https://developer.themoviedb.org/reference/intro/getting-started) to display the most popular movies.</br>
+A simple movie app that uses the [TMDB API](https://developer.themoviedb.org/reference/intro/getting-started) to display the most popular movies.</br>
 
-This approach only makes use of the API Key for ```GET``` requests, the AccessToken was not used for ```POST``` requests since its expiration time is unknown and the TMDB API doesn't provide a service to obtain it other than copying it from the web environment.</br>
+This approach only makes use of the API Key for ```GET``` requests, the API Read Access Token was not used for ```POST``` requests since its expiration time is unknown and the TMDB API doesn't provide a service to obtain it other than copying it from the web environment.</br>
 
-Because of this, the favorites section doesn't consume the web services provided by the API, instead a Room database was created to demonstrate its use.</br>
+Because of this, the ```favorites``` section doesn't consume the web services provided by the API, instead, a Room database was created to demonstrate its use.</br>
 
 <img src="https://github.com/hugo-figueroa/Movie-TMDB/assets/33041982/b2c32429-c34d-4fb6-bcdb-68a4cf617df1" alt="Splash" width="300"/>
 <img src="https://github.com/hugo-figueroa/Movie-TMDB/assets/33041982/785a3d30-7906-42f8-beef-921074ba8e0a" alt="Popular" width="300"/>
@@ -12,7 +12,7 @@ Because of this, the favorites section doesn't consume the web services provided
 <img src="https://github.com/hugo-figueroa/Movie-TMDB/assets/33041982/b92b8ab3-a0bb-4274-b378-693dd8047b84" alt="Favorites" width="300"/>
 
 ## How to run it...
-For security reasons, to be able to use this project you will need to add your [TMDB Api Key](https://www.themoviedb.org/settings/api) to your ```local.properties``` file like in the following example. </br></br>
+For security reasons to be able to use this project once you clone it you will need to add your [TMDB API KEY](https://www.themoviedb.org/settings/api) to your ```local.properties``` file like in the following example: </br></br>
 
 ```TMDB_KEY=xxxxxxxxxxxxxxxxxxxxxxxf9e54247e```
 
@@ -31,20 +31,25 @@ For security reasons, to be able to use this project you will need to add your [
 - Navigation Graph
 - Network Error Handling
 - Use Cases
+- Mappers
 - GIT -> [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), [Gitmoji](https://gitmoji.dev/)
 
 ## Pending concepts
 I didn't have enough time to complete some things.
-- AuthorizationInterceptor
 - Unit Testing
 - Integration Testing
 - Sort algorithm
 
-## Concepts I'd like to improve
+## Concepts I'd like to improve or add
+- AuthorizationInterceptor*
 - Screen Designs
 - Error Views
+- Shimmers
 - BottomNavigationBar
 - Navigation
+- Feature Android Modules
+- Logs
+- LeakCanary
 
 ## Feature modules
 
