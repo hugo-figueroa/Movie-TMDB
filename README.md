@@ -8,7 +8,6 @@ Because of this, the favorites section doesn't consume the web services provided
 <img src="https://github.com/hugo-figueroa/Movie-TMDB/assets/33041982/b2c32429-c34d-4fb6-bcdb-68a4cf617df1" alt="Splash" width="300"/>
 <img src="https://github.com/hugo-figueroa/Movie-TMDB/assets/33041982/785a3d30-7906-42f8-beef-921074ba8e0a" alt="Popular" width="300"/>
 <img src="https://github.com/hugo-figueroa/Movie-TMDB/assets/33041982/51bb503a-5363-4765-a8ed-d9fa43df7a13" alt="Details" width="300"/>
-<br/>
 <img src="https://github.com/hugo-figueroa/Movie-TMDB/assets/33041982/3843eb23-c55e-4262-b20e-b15958d7445a" alt="Now Playing" width="300"/>
 <img src="https://github.com/hugo-figueroa/Movie-TMDB/assets/33041982/b92b8ab3-a0bb-4274-b378-693dd8047b84" alt="Favorites" width="300"/>
 
