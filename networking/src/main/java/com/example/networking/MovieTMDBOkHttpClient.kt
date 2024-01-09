@@ -1,9 +1,16 @@
 package com.example.networking
 
 import java.util.concurrent.TimeUnit
+import okhttp3.CipherSuite.Companion.TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+import okhttp3.CipherSuite.Companion.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+import okhttp3.CipherSuite.Companion.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+import okhttp3.ConnectionSpec
+import okhttp3.ConnectionSpec.Companion.MODERN_TLS
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.TlsVersion
 import okhttp3.logging.HttpLoggingInterceptor
+
 
 /**
  * MovieTMDBOkHttpClient

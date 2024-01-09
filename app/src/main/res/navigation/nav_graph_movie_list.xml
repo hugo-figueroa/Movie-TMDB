@@ -18,9 +18,9 @@
 
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.example.simplemovieapp.features.movieDetails.presentation.view.MovieDetailsFragment"
-        android:label="fragment_movie_details"
-        tools:layout="@layout/fragment_movie_details" />
+        android:name="com.example.simplemovieapp.features.favorites.presentation.view.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
 
     <fragment
         android:id="@+id/nowPlayingMoviesFragment"
