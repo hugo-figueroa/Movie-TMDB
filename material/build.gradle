@@ -1,0 +1,53 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.example.material'
+
+    defaultConfig {
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion "$composeVersion"
+    }
+}
+
+dependencies {
+
+    implementation "androidx.core:core-ktx:$coreKtxVersion"
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "com.google.android.material:material:$materialVersion"
+    testImplementation "junit:junit:$jUnitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$jUnitImplementation"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
+    
+    // Compose Material Design
+    api "androidx.compose.material:material:$composeVersion"
+    // Animations
+    api "androidx.compose.animation:animation:$composeVersion"
+    // Tooling support (Previews, etc.)
+    api "androidx.compose.ui:ui-tooling:$composeVersion"
+    // Compose Compilation
+    api "androidx.compose.runtime:runtime:$composeVersion"
+    api "androidx.compose.compiler:compiler:$composeVersion"
+    // Coil
+    api "io.coil-kt:coil-compose:$coilVersion"
+}
