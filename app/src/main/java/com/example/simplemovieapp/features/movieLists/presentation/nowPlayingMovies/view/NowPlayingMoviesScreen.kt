@@ -22,6 +22,8 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
@@ -60,6 +62,7 @@ import com.example.simplemovieapp.R
 import com.example.simplemovieapp.features.movieLists.domain.models.MovieDomain
 import com.example.simplemovieapp.features.movieLists.presentation.nowPlayingMovies.viewModel.NowPlayingMoviesUiState
 import com.example.simplemovieapp.features.movieLists.presentation.nowPlayingMovies.viewModel.NowPlayingMoviesViewModel
+import com.example.simplemovieapp.features.movieLists.presentation.popularMovies.view.PopularMoviesInternetError
 
 /**
  * NowPlayingMoviesScreen
@@ -79,8 +82,8 @@ fun NowPlayingMoviesScreen(viewModel: NowPlayingMoviesViewModel) {
                 CircularProgressIndicator(
                     modifier = Modifier
                         .size(64.dp),
-                    color = TMDBTheme.colors.primary,
-                    backgroundColor = TMDBTheme.colors.orangeLight,
+                    color = TMDBTheme.colors.primaryVariant,
+                    backgroundColor = TMDBTheme.colors.primary,
                     strokeWidth = 6.dp,
                     strokeCap = StrokeCap.Round
                 )
@@ -98,7 +101,7 @@ fun NowPlayingMoviesScreen(viewModel: NowPlayingMoviesViewModel) {
             when ((uiState as NowPlayingMoviesUiState.Error).error) {
                 is NoInternetException -> {
                     // Internet Error
-                    //TODO: Add design for error
+                    NowPlayingMoviesInternetError(viewModel)
                 }
 
                 is NotFoundException -> {
@@ -145,7 +148,7 @@ fun NowPlayingMoviesWithToggle(viewModel: NowPlayingMoviesViewModel) {
             text = "Now Playing Movies",
             textAlign = TextAlign.Center,
             style = TMDBTheme.typography.title1,
-            color = TMDBTheme.colors.primary,
+            color = TMDBTheme.colors.primaryVariant,
             maxLines = 2
         )
 
@@ -218,8 +221,8 @@ fun NowPlayingMoviesVerticalList(
                     CircularProgressIndicator(
                         modifier = Modifier
                             .size(32.dp),
-                        color = TMDBTheme.colors.primary,
-                        backgroundColor = TMDBTheme.colors.orangeLight,
+                        color = TMDBTheme.colors.primaryVariant,
+                        backgroundColor = TMDBTheme.colors.primary,
                         strokeCap = StrokeCap.Round
                     )
                 }
@@ -265,8 +268,8 @@ fun NowPlayingMoviesGridList(
                     CircularProgressIndicator(
                         modifier = Modifier
                             .size(32.dp),
-                        color = TMDBTheme.colors.primary,
-                        backgroundColor = TMDBTheme.colors.orangeLight,
+                        color = TMDBTheme.colors.primaryVariant,
+                        backgroundColor = TMDBTheme.colors.primary,
                         strokeCap = StrokeCap.Round
                     )
                 }
@@ -418,6 +421,58 @@ fun NowPlayingMoviesGridItem(
                         color = TMDBTheme.colors.secondary
                     )
                 }
+            }
+        }
+    }
+}
+
+@Composable
+fun NowPlayingMoviesInternetError(viewModel: NowPlayingMoviesViewModel) {
+    Column(
+        modifier = Modifier
+            .background(TMDBTheme.colors.surfaceLight)
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(
+            modifier = Modifier
+                .padding(top = TMDBTheme.grids.grid2)
+                .fillMaxWidth(),
+            text = "Now Playing Movies",
+            textAlign = TextAlign.Center,
+            style = TMDBTheme.typography.title1,
+            color = TMDBTheme.colors.primaryVariant,
+            maxLines = 2
+        )
+
+        Column(
+            modifier = Modifier
+                .background(TMDBTheme.colors.surfaceLight)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                modifier = Modifier
+                    .padding(
+                        start = TMDBTheme.grids.grid3,
+                        end = TMDBTheme.grids.grid3,
+                        top = TMDBTheme.grids.grid1,
+                        bottom = TMDBTheme.grids.grid1
+                    ),
+                text = "We had a problem with your internet connection, please try again later",
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                maxLines = 3,
+                minLines = 3
+            )
+
+            Button(
+                onClick = { viewModel.getBaseImageUrl() },
+                shape = TMDBTheme.customShapes.roundedCorner16,
+                colors = ButtonDefaults.buttonColors(backgroundColor = TMDBTheme.colors.primaryVariant)
+            ) {
+                Text(text = "Retry", color = TMDBTheme.colors.surfaceLight)
             }
         }
     }

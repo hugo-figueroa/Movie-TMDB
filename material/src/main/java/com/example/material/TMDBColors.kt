@@ -8,9 +8,9 @@ import androidx.compose.ui.graphics.Color
  *
  * @author (c) 2024, Hugo Figueroa
  * */
-val orange200 = Color(0xFFFFAB91)
-val orange500 = Color(0xFFFF5722)
-val orange700 = Color(0xFFE64A19)
+val orange200 = Color(0xFFFFCDD2)
+val orange500 = Color(0xFFEF9A9A)
+val orange700 = Color(0xFFEF5350)
 val gray800 = Color(0xFF424242)
 val gray100 = Color(0xFFF5F5F5)
 val gray400 = Color(0xFFBDBDBD)

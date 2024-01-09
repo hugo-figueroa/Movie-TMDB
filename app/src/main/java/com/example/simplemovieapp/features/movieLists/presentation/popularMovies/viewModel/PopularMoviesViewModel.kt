@@ -47,7 +47,7 @@ class PopularMoviesViewModel @Inject constructor(
         getBaseImageUrl()
     }
 
-    private fun getBaseImageUrl() {
+    fun getBaseImageUrl() {
         viewModelScope.launch {
             baseImageUrl = withContext(Dispatchers.IO) { getBaseImageUrlUseCase() }
             popularMoviesMLD.value = PopularMoviesUiState.Loading

@@ -22,6 +22,8 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
@@ -57,6 +59,7 @@ import com.example.networking.exceptions.NotFoundException
 import com.example.networking.exceptions.ServerErrorException
 import com.example.networking.exceptions.UnknownErrorException
 import com.example.simplemovieapp.R
+import com.example.simplemovieapp.features.favorites.presentation.view.FavoritesEmptyList
 import com.example.simplemovieapp.features.movieLists.domain.models.MovieDomain
 import com.example.simplemovieapp.features.movieLists.presentation.popularMovies.viewModel.PopularMoviesUiState
 import com.example.simplemovieapp.features.movieLists.presentation.popularMovies.viewModel.PopularMoviesViewModel
@@ -80,8 +83,8 @@ fun PopularMoviesScreen(viewModel: PopularMoviesViewModel) {
                 CircularProgressIndicator(
                     modifier = Modifier
                         .size(64.dp),
-                    color = TMDBTheme.colors.primary,
-                    backgroundColor = TMDBTheme.colors.orangeLight,
+                    color = TMDBTheme.colors.primaryVariant,
+                    backgroundColor = TMDBTheme.colors.primary,
                     strokeWidth = 6.dp,
                     strokeCap = StrokeCap.Round
                 )
@@ -99,7 +102,7 @@ fun PopularMoviesScreen(viewModel: PopularMoviesViewModel) {
             when ((uiState as PopularMoviesUiState.Error).error) {
                 is NoInternetException -> {
                     // Internet Error
-                    //TODO: Add design for error
+                    PopularMoviesInternetError(viewModel)
                 }
 
                 is NotFoundException -> {
@@ -146,7 +149,7 @@ fun PopularMoviesWithToggle(viewModel: PopularMoviesViewModel) {
             text = "Popular Movies",
             textAlign = TextAlign.Center,
             style = TMDBTheme.typography.title1,
-            color = TMDBTheme.colors.primary,
+            color = TMDBTheme.colors.primaryVariant,
             maxLines = 2
         )
 
@@ -220,8 +223,8 @@ fun PopularMoviesVerticalList(
                     CircularProgressIndicator(
                         modifier = Modifier
                             .size(32.dp),
-                        color = TMDBTheme.colors.primary,
-                        backgroundColor = TMDBTheme.colors.orangeLight,
+                        color = TMDBTheme.colors.primaryVariant,
+                        backgroundColor = TMDBTheme.colors.primary,
                         strokeCap = StrokeCap.Round
                     )
                 }
@@ -268,8 +271,8 @@ fun PopularMoviesGridList(
                     CircularProgressIndicator(
                         modifier = Modifier
                             .size(32.dp),
-                        color = TMDBTheme.colors.primary,
-                        backgroundColor = TMDBTheme.colors.orangeLight,
+                        color = TMDBTheme.colors.primaryVariant,
+                        backgroundColor = TMDBTheme.colors.primary,
                         strokeCap = StrokeCap.Round
                     )
                 }
@@ -421,6 +424,57 @@ fun PopularMoviesGridItem(
                         color = TMDBTheme.colors.secondary
                     )
                 }
+            }
+        }
+    }
+}
+
+@Composable
+fun PopularMoviesInternetError(viewModel: PopularMoviesViewModel) {
+    Column(
+        modifier = Modifier
+            .background(TMDBTheme.colors.surfaceLight)
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(
+            modifier = Modifier
+                .padding(top = TMDBTheme.grids.grid2)
+                .fillMaxWidth(),
+            text = "Popular Movies",
+            textAlign = TextAlign.Center,
+            style = TMDBTheme.typography.title1,
+            color = TMDBTheme.colors.primaryVariant,
+            maxLines = 2
+        )
+        Column(
+            modifier = Modifier
+                .background(TMDBTheme.colors.surfaceLight)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                modifier = Modifier
+                    .padding(
+                        start = TMDBTheme.grids.grid3,
+                        end = TMDBTheme.grids.grid3,
+                        top = TMDBTheme.grids.grid1,
+                        bottom = TMDBTheme.grids.grid1
+                    ),
+                text = "We had a problem with your internet connection, please try again later",
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                maxLines = 3,
+                minLines = 3
+            )
+
+            Button(
+                onClick = { viewModel.getBaseImageUrl() },
+                shape = TMDBTheme.customShapes.roundedCorner16,
+                colors = ButtonDefaults.buttonColors(backgroundColor = TMDBTheme.colors.primaryVariant)
+            ) {
+                Text(text = "Retry", color = TMDBTheme.colors.surfaceLight)
             }
         }
     }

@@ -47,7 +47,7 @@ class NowPlayingMoviesViewModel @Inject constructor(
         getBaseImageUrl()
     }
 
-    private fun getBaseImageUrl() {
+    fun getBaseImageUrl() {
         viewModelScope.launch {
             baseImageUrl = withContext(Dispatchers.IO) { getBaseImageUrlUseCase() }
             nowPlayingMoviesMLD.value = NowPlayingMoviesUiState.Loading

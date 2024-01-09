@@ -351,7 +351,7 @@ fun FavoritesEmptyList() {
                     bottom = TMDBTheme.grids.grid1
                 )
                 .fillMaxSize(),
-            text = "Aún no hay elementos en esta sección",
+            text = "There are no items in this section yet",
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             maxLines = 3,
