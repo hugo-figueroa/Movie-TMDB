@@ -31,11 +31,20 @@ For security reasons, to be able to use this project you will need to add your [
 - Navigation Graph
 - Network Error Handling
 - Use Cases
+- GIT -> [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), [Gitmoji](https://gitmoji.dev/)
 
 ## Pending concepts
+I didn't have enough time to complete some things.
 - AuthorizationInterceptor
 - Unit Testing
 - Integration Testing
+- Sort algorithm
+
+## Concepts I'd like to improve
+- Screen Designs
+- Error Views
+- BottomNavigationBar
+- Navigation
 
 ## Feature modules
 
@@ -55,12 +64,6 @@ Here you will find some base classes and classes commonly used among the differe
 This module is used to create the configuration of Retrofit and Okttp
 ### material
 Is used to add the design system classes and to add custom views when is needed.
-
-## Concepts to improve
-- Screen Designs
-- Error Views
-- BottomNavigationBar
-- Navigation
 
 ## Architecture used
 ![architecture](https://github.com/hugo-figueroa/hugo-figueroa/assets/33041982/fb915f19-5b48-4abe-8ce9-6266a54b85c4)
