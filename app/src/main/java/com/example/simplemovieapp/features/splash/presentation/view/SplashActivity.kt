@@ -10,7 +10,7 @@ import com.example.core.extensionFunctions.observe
 import com.example.core.extensionFunctions.transparentStatusBarUI
 import com.example.core.extensionFunctions.viewBinding
 import com.example.simplemovieapp.databinding.ActivitySplashBinding
-import com.example.simplemovieapp.features.movieLists.presentation.view.MovieListActivity
+import com.example.simplemovieapp.features.movieLists.presentation.MovieListActivity
 import com.example.simplemovieapp.features.splash.presentation.constants.SplashConstants
 import com.example.simplemovieapp.features.splash.presentation.viewModel.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint

@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".features.movieLists.presentation.view.MovieListActivity"
+            android:name=".features.movieLists.presentation.MovieListActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/TMDB.NoActionBar" />

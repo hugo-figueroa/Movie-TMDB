@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/popularMoviesFragment"
-        android:name="com.example.simplemovieapp.features.movieLists.presentation.view.PopularMoviesFragment"
+        android:name="com.example.simplemovieapp.features.movieLists.presentation.popularMovies.view.PopularMoviesFragment"
         android:label="fragment_popular_movies"
         tools:layout="@layout/fragment_popular_movies" />
 
@@ -23,9 +23,9 @@
         tools:layout="@layout/fragment_movie_details" />
 
     <fragment
-        android:id="@+id/accountFragment"
-        android:name="com.example.simplemovieapp.features.movieDetails.presentation.view.MovieDetailsFragment"
-        android:label="fragment_movie_details"
-        tools:layout="@layout/fragment_movie_details" />
+        android:id="@+id/nowPlayingMoviesFragment"
+        android:name="com.example.simplemovieapp.features.movieLists.presentation.nowPlayingMovies.view.NowPlayingMoviesFragment"
+        android:label="fragment_now_playing_movies"
+        tools:layout="@layout/fragment_now_playing_movies" />
 
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.simplemovieapp.features.movieLists.presentation.view
+package com.example.simplemovieapp.features.movieLists.presentation.popularMovies.view
 
 import android.os.Bundle
 import android.view.View
@@ -7,7 +7,7 @@ import com.example.core.base.fragment.BaseFragment
 import com.example.core.extensionFunctions.viewBinding
 import com.example.material.MovieTHDBTheme
 import com.example.simplemovieapp.databinding.FragmentPopularMoviesBinding
-import com.example.simplemovieapp.features.movieLists.presentation.viewModel.MovieListViewModel
+import com.example.simplemovieapp.features.movieLists.presentation.popularMovies.viewModel.PopularMoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -16,9 +16,9 @@ import dagger.hilt.android.AndroidEntryPoint
  * @author (c) 2024, Hugo Figueroa
  * */
 @AndroidEntryPoint
-class PopularMoviesFragment() : BaseFragment<FragmentPopularMoviesBinding, MovieListViewModel>() {
+class PopularMoviesFragment() : BaseFragment<FragmentPopularMoviesBinding, PopularMoviesViewModel>() {
 
-    override val viewModel: MovieListViewModel by viewModels()
+    override val viewModel: PopularMoviesViewModel by viewModels()
 
     override val binding: FragmentPopularMoviesBinding by viewBinding {
         FragmentPopularMoviesBinding.inflate(
@@ -31,7 +31,7 @@ class PopularMoviesFragment() : BaseFragment<FragmentPopularMoviesBinding, Movie
         binding.popularMoviesContent.apply {
             setContent {
                 MovieTHDBTheme {
-                    MovieListScreen(viewModel)
+                    PopularMoviesScreen(viewModel)
                 }
             }
         }

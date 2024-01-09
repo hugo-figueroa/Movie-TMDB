@@ -1,4 +1,4 @@
-package com.example.simplemovieapp.features.movieLists.presentation.view
+package com.example.simplemovieapp.features.movieLists.presentation
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -9,12 +9,12 @@ import com.example.core.base.viewModel.EmptyViewModel
 import com.example.core.extensionFunctions.viewBinding
 import com.example.simplemovieapp.R
 import com.example.simplemovieapp.databinding.ActivityMovieListBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MovieListActivity @Inject constructor() : BaseActivity<ActivityMovieListBinding, EmptyViewModel>() {
+class MovieListActivity @Inject constructor() :
+    BaseActivity<ActivityMovieListBinding, EmptyViewModel>() {
 
     override val viewModel: EmptyViewModel by viewModels()
 
@@ -34,7 +34,6 @@ class MovieListActivity @Inject constructor() : BaseActivity<ActivityMovieListBi
         val navGraph = graphInflater.inflate(R.navigation.nav_graph_movie_list)
         navGraph.setStartDestination(R.id.popularMoviesFragment)
         navController.setGraph(navGraph, intent.extras)
-        val navView: BottomNavigationView = findViewById(R.id.bottomNavigation)
-        navView.setupWithNavController(navController)
+        binding.bottomNavigation.setupWithNavController(navController)
     }
 }

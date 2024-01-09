@@ -1,4 +1,4 @@
-package com.example.simplemovieapp.features.movieLists.presentation.view
+package com.example.simplemovieapp.features.movieLists.presentation.nowPlayingMovies.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -57,20 +57,19 @@ import com.example.networking.exceptions.ServerErrorException
 import com.example.networking.exceptions.UnknownErrorException
 import com.example.simplemovieapp.R
 import com.example.simplemovieapp.features.movieLists.domain.models.MovieDomain
-import com.example.simplemovieapp.features.movieLists.presentation.viewModel.MovieListUiState
-import com.example.simplemovieapp.features.movieLists.presentation.viewModel.MovieListViewModel
+import com.example.simplemovieapp.features.movieLists.presentation.nowPlayingMovies.viewModel.NowPlayingMoviesUiState
+import com.example.simplemovieapp.features.movieLists.presentation.nowPlayingMovies.viewModel.NowPlayingMoviesViewModel
 
 /**
- * MovieListScreen
+ * NowPlayingMoviesScreen
  *
  * @author (c) 2024, Hugo Figueroa
  * */
-
 @Composable
-fun MovieListScreen(viewModel: MovieListViewModel) {
-    val uiState by viewModel.popularMovieList.observeAsState()
+fun NowPlayingMoviesScreen(viewModel: NowPlayingMoviesViewModel) {
+    val uiState by viewModel.nowPlayingMovies.observeAsState()
     when (uiState) {
-        is MovieListUiState.Loading, null -> {
+        is NowPlayingMoviesUiState.Loading, null -> {
             Row(
                 modifier = Modifier.fillMaxSize(),
                 horizontalArrangement = Arrangement.Center,
@@ -88,14 +87,14 @@ fun MovieListScreen(viewModel: MovieListViewModel) {
 
         }
 
-        is MovieListUiState.Content -> {
-            MovieListWithToggle(
+        is NowPlayingMoviesUiState.Content -> {
+            NowPlayingMoviesWithToggle(
                 viewModel = viewModel
             )
         }
 
-        is MovieListUiState.Error -> {
-            when ((uiState as MovieListUiState.Error).error) {
+        is NowPlayingMoviesUiState.Error -> {
+            when ((uiState as NowPlayingMoviesUiState.Error).error) {
                 is NoInternetException -> {
                     // Internet Error
                     //TODO: Add design for error
@@ -126,7 +125,7 @@ fun MovieListScreen(viewModel: MovieListViewModel) {
 }
 
 @Composable
-fun MovieListWithToggle(viewModel: MovieListViewModel) {
+fun NowPlayingMoviesWithToggle(viewModel: NowPlayingMoviesViewModel) {
     var isGrid by remember { mutableStateOf(false) }
 
     val scrollListState = rememberLazyListState()
@@ -142,7 +141,7 @@ fun MovieListWithToggle(viewModel: MovieListViewModel) {
         Text(
             modifier = Modifier
                 .fillMaxWidth(),
-            text = "Popular Movies",
+            text = "Now Playing Movies",
             textAlign = TextAlign.Center,
             style = TMDBTheme.typography.title1,
             color = TMDBTheme.colors.primary,
@@ -163,18 +162,19 @@ fun MovieListWithToggle(viewModel: MovieListViewModel) {
             }
         }
 
-        val listMovies = remember { mutableStateOf(viewModel.popularMoviesList) }
+        val listMoviesList = remember { mutableStateOf(viewModel.nowPlayingMoviesList) }
+        val listMoviesGrid = remember { mutableStateOf(viewModel.nowPlayingMoviesGrid) }
 
         if (isGrid) {
-            GridList(
+            NowPlayingMoviesGridList(
                 viewModel = viewModel,
-                listMovies = listMovies,
+                listMovies = listMoviesGrid,
                 scrollGridState = scrollGridState
             )
         } else {
-            VerticalList(
+            NowPlayingMoviesVerticalList(
                 viewModel = viewModel,
-                listMovies = listMovies,
+                listMovies = listMoviesList,
                 scrollListState = scrollListState
             )
         }
@@ -182,8 +182,8 @@ fun MovieListWithToggle(viewModel: MovieListViewModel) {
 }
 
 @Composable
-fun VerticalList(
-    viewModel: MovieListViewModel,
+fun NowPlayingMoviesVerticalList(
+    viewModel: NowPlayingMoviesViewModel,
     listMovies: MutableState<MutableList<MovieDomain>>,
     scrollListState: LazyListState
 ) {
@@ -194,13 +194,13 @@ fun VerticalList(
         state = scrollListState
     ) {
         items(listMovies.value) { movie ->
-            MovieListItem(viewModel.baseImageUrl.plus("w500"), movie)
+            NowPlayingMoviesItem(viewModel.baseImageUrl.plus("w500"), movie)
             if (movie == listMovies.value.last()) {
                 if (!isLoading) {
                     LaunchedEffect(key1 = Unit) {
                         isLoading = true
-                        viewModel.popularMoviesPage += 1
-                        viewModel.fetchPopularMovies(viewModel.popularMoviesPage)
+                        viewModel.nowPlayingMoviesPageList += 1
+                        viewModel.fetchNowPlayingMoviesList(viewModel.nowPlayingMoviesPageList)
                     }
                 }
             }
@@ -226,8 +226,8 @@ fun VerticalList(
 }
 
 @Composable
-fun GridList(
-    viewModel: MovieListViewModel,
+fun NowPlayingMoviesGridList(
+    viewModel: NowPlayingMoviesViewModel,
     listMovies: MutableState<MutableList<MovieDomain>>,
     scrollGridState: LazyGridState
 ) {
@@ -239,13 +239,13 @@ fun GridList(
         state = scrollGridState
     ) {
         items(listMovies.value) { movie ->
-            MovieGridItem(viewModel.baseImageUrl.plus("w500"), movie)
+            NowPlayingMoviesGridItem(viewModel.baseImageUrl.plus("w500"), movie)
             if (movie == listMovies.value.last()) {
                 if (!isLoading) {
                     LaunchedEffect(key1 = Unit) {
                         isLoading = true
-                        viewModel.popularMoviesPage += 1
-                        viewModel.fetchPopularMovies(viewModel.popularMoviesPage)
+                        viewModel.nowPlayingMoviesPageGrid += 1
+                        viewModel.fetchNowPlayingMoviesGrid(viewModel.nowPlayingMoviesPageGrid)
                     }
                 }
             }
@@ -271,7 +271,7 @@ fun GridList(
 }
 
 @Composable
-fun MovieListItem(imageBaseUrl: String, item: MovieDomain) {
+fun NowPlayingMoviesItem(imageBaseUrl: String, item: MovieDomain) {
     Box(
         modifier = Modifier
             .height(160.dp)
@@ -336,7 +336,7 @@ fun MovieListItem(imageBaseUrl: String, item: MovieDomain) {
 }
 
 @Composable
-fun MovieGridItem(imageBaseUrl: String, item: MovieDomain) {
+fun NowPlayingMoviesGridItem(imageBaseUrl: String, item: MovieDomain) {
     Card(
         modifier = Modifier
             .width(180.dp)
@@ -412,7 +412,7 @@ fun MovieGridItem(imageBaseUrl: String, item: MovieDomain) {
 @Composable
 fun previewMovieListItem() {
     MovieTHDBTheme {
-        MovieListItem(
+        NowPlayingMoviesItem(
             imageBaseUrl = "https://image.tmdb.org/t/p/",
             item = MovieDomain(
                 id = 1029575,
@@ -435,7 +435,7 @@ fun previewMovieListItem() {
 @Composable
 fun previewMovieGridItem() {
     MovieTHDBTheme {
-        MovieGridItem(
+        NowPlayingMoviesGridItem(
             imageBaseUrl = "https://image.tmdb.org/t/p/",
             item = MovieDomain(
                 id = 1029575,

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".features.movieDetails.presentation.view.MovieDetaisActivity">
 
-    <androidx.fragment.app.FragmentContainerView
+    <fragment
         android:id="@+id/movieDetailContainer"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
