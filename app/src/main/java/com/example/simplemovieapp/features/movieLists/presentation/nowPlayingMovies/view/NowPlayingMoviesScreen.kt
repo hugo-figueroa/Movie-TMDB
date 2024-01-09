@@ -1,6 +1,7 @@
 package com.example.simplemovieapp.features.movieLists.presentation.nowPlayingMovies.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -194,7 +195,9 @@ fun NowPlayingMoviesVerticalList(
         state = scrollListState
     ) {
         items(listMovies.value) { movie ->
-            NowPlayingMoviesItem(viewModel.baseImageUrl.plus("w500"), movie)
+            NowPlayingMoviesItem(viewModel.baseImageUrl.plus("w500"), movie) { movieId ->
+                viewModel.goToMovieDetails(movieId)
+            }
             if (movie == listMovies.value.last()) {
                 if (!isLoading) {
                     LaunchedEffect(key1 = Unit) {
@@ -239,7 +242,9 @@ fun NowPlayingMoviesGridList(
         state = scrollGridState
     ) {
         items(listMovies.value) { movie ->
-            NowPlayingMoviesGridItem(viewModel.baseImageUrl.plus("w500"), movie)
+            NowPlayingMoviesGridItem(viewModel.baseImageUrl.plus("w500"), movie) { movieId ->
+                viewModel.goToMovieDetails(movieId)
+            }
             if (movie == listMovies.value.last()) {
                 if (!isLoading) {
                     LaunchedEffect(key1 = Unit) {
@@ -271,9 +276,14 @@ fun NowPlayingMoviesGridList(
 }
 
 @Composable
-fun NowPlayingMoviesItem(imageBaseUrl: String, item: MovieDomain) {
+fun NowPlayingMoviesItem(
+    imageBaseUrl: String,
+    item: MovieDomain,
+    onItemClick: (movieId: Int) -> Unit
+) {
     Box(
         modifier = Modifier
+            .clickable { onItemClick(item.id) }
             .height(160.dp)
             .fillMaxWidth()
             .padding(
@@ -336,9 +346,14 @@ fun NowPlayingMoviesItem(imageBaseUrl: String, item: MovieDomain) {
 }
 
 @Composable
-fun NowPlayingMoviesGridItem(imageBaseUrl: String, item: MovieDomain) {
+fun NowPlayingMoviesGridItem(
+    imageBaseUrl: String,
+    item: MovieDomain,
+    onItemClick: (movieId: Int) -> Unit
+) {
     Card(
         modifier = Modifier
+            .clickable { onItemClick(item.id) }
             .width(180.dp)
             .padding(TMDBTheme.grids.grid1),
         elevation = TMDBTheme.grids.grid05,
@@ -426,7 +441,8 @@ fun previewMovieListItem() {
                 video = false,
                 voteAverage = 7.395,
                 voteCount = 625
-            )
+            ),
+            {}
         )
     }
 }
@@ -449,7 +465,8 @@ fun previewMovieGridItem() {
                 video = false,
                 voteAverage = 7.395,
                 voteCount = 625
-            )
+            ),
+            {}
         )
     }
 }

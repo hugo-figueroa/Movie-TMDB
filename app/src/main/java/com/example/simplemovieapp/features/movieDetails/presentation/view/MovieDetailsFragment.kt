@@ -1,8 +1,11 @@
 package com.example.simplemovieapp.features.movieDetails.presentation.view
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.core.base.fragment.BaseFragment
 import com.example.core.extensionFunctions.viewBinding
+import com.example.material.MovieTHDBTheme
 import com.example.simplemovieapp.databinding.FragmentMovieDetailsBinding
 import com.example.simplemovieapp.features.movieDetails.presentation.viewModel.MovieDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,5 +24,16 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding, MovieDeta
         FragmentMovieDetailsBinding.inflate(
             layoutInflater
         )
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.movieDetailsContent.apply {
+            setContent {
+                MovieTHDBTheme {
+                    MovieDetailScreen(viewModel)
+                }
+            }
+        }
     }
 }

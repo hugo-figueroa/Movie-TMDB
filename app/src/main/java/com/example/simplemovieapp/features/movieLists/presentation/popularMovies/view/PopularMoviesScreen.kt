@@ -1,6 +1,7 @@
 package com.example.simplemovieapp.features.movieLists.presentation.popularMovies.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -164,7 +165,7 @@ fun PopularMoviesWithToggle(viewModel: PopularMoviesViewModel) {
         }
 
         val listMoviesList = remember { mutableStateOf(viewModel.popularMoviesList) }
-        val listMoviesGrid= remember { mutableStateOf(viewModel.popularMoviesGrid) }
+        val listMoviesGrid = remember { mutableStateOf(viewModel.popularMoviesGrid) }
 
         if (isGrid) {
             PopularMoviesGridList(
@@ -195,7 +196,10 @@ fun PopularMoviesVerticalList(
         state = scrollListState
     ) {
         items(listMovies.value) { movie ->
-            PopularMoviesItem(viewModel.baseImageUrl.plus("w500"), movie)
+            PopularMoviesItem(
+                viewModel.baseImageUrl.plus("w500"),
+                movie
+            ) { movieId -> viewModel.goToMovieDetails(movieId) }
             if (movie == listMovies.value.last()) {
                 if (!isLoading) {
                     LaunchedEffect(key1 = Unit) {
@@ -240,7 +244,10 @@ fun PopularMoviesGridList(
         state = scrollGridState
     ) {
         items(listMovies.value) { movie ->
-            PopularMoviesGridItem(viewModel.baseImageUrl.plus("w500"), movie)
+            PopularMoviesGridItem(
+                viewModel.baseImageUrl.plus("w500"),
+                movie
+            ) { movieId -> viewModel.goToMovieDetails(movieId) }
             if (movie == listMovies.value.last()) {
                 if (!isLoading) {
                     LaunchedEffect(key1 = Unit) {
@@ -272,9 +279,14 @@ fun PopularMoviesGridList(
 }
 
 @Composable
-fun PopularMoviesItem(imageBaseUrl: String, item: MovieDomain) {
+fun PopularMoviesItem(
+    imageBaseUrl: String,
+    item: MovieDomain,
+    onItemClick: (movieId: Int) -> Unit
+) {
     Box(
         modifier = Modifier
+            .clickable { onItemClick(item.id) }
             .height(160.dp)
             .fillMaxWidth()
             .padding(
@@ -337,10 +349,15 @@ fun PopularMoviesItem(imageBaseUrl: String, item: MovieDomain) {
 }
 
 @Composable
-fun PopularMoviesGridItem(imageBaseUrl: String, item: MovieDomain) {
+fun PopularMoviesGridItem(
+    imageBaseUrl: String,
+    item: MovieDomain,
+    onItemClick: (movieId: Int) -> Unit
+) {
     Card(
         modifier = Modifier
             .width(180.dp)
+            .clickable { onItemClick(item.id) }
             .padding(TMDBTheme.grids.grid1),
         elevation = TMDBTheme.grids.grid05,
         shape = TMDBTheme.shapes.large
@@ -427,7 +444,8 @@ fun previewPopularMoviesItem() {
                 video = false,
                 voteAverage = 7.395,
                 voteCount = 625
-            )
+            ),
+            {}
         )
     }
 }
@@ -450,7 +468,8 @@ fun previewPopularMoviesGridItem() {
                 video = false,
                 voteAverage = 7.395,
                 voteCount = 625
-            )
+            ),
+            {}
         )
     }
 }
