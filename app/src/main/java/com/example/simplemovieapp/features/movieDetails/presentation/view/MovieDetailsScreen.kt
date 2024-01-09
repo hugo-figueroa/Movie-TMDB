@@ -1,5 +1,6 @@
 package com.example.simplemovieapp.features.movieDetails.presentation.view
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,16 +28,24 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
+import androidx.compose.material.IconToggleButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -121,6 +130,8 @@ fun MovieDetailScreen(viewModel: MovieDetailsViewModel) {
 
 @Composable
 fun MovieDetails(viewModel: MovieDetailsViewModel, item: MovieDetailsDomain) {
+    var isFavorite by remember { mutableStateOf(viewModel.isInFavorites) }
+
     Column(
         modifier = Modifier
             .background(TMDBTheme.colors.surfaceLight)
@@ -135,7 +146,7 @@ fun MovieDetails(viewModel: MovieDetailsViewModel, item: MovieDetailsDomain) {
             text = "Details",
             textAlign = TextAlign.Center,
             style = TMDBTheme.typography.title1,
-            color = TMDBTheme.colors.primary,
+            color = TMDBTheme.colors.primaryVariant,
             maxLines = 2
         )
 
@@ -150,6 +161,38 @@ fun MovieDetails(viewModel: MovieDetailsViewModel, item: MovieDetailsDomain) {
                 .padding(top = TMDBTheme.grids.grid3)
                 .clip(TMDBTheme.customShapes.roundedCorner8)
         )
+
+        Row(
+            modifier = Modifier
+                .padding(
+                    end = TMDBTheme.grids.grid3
+                )
+                .fillMaxWidth(), horizontalArrangement = Arrangement.End
+        ) {
+            IconToggleButton(
+                modifier = Modifier,
+                checked = isFavorite ?: false,
+                onCheckedChange = {
+                    isFavorite = it
+                    onFavoriteChange(it, viewModel)
+                }) {
+                if (isFavorite == true) {
+                    Icon(
+                        modifier = Modifier.size(32.dp),
+                        imageVector = ImageVector.vectorResource(R.drawable.favorite_fill),
+                        contentDescription = "",
+                        tint = TMDBTheme.colors.primaryVariant
+                    )
+                } else {
+                    Icon(
+                        modifier = Modifier.size(32.dp),
+                        imageVector = ImageVector.vectorResource(R.drawable.favorite),
+                        contentDescription = "",
+                        tint = TMDBTheme.colors.primaryVariant
+                    )
+                }
+            }
+        }
 
         Text(
             modifier = Modifier
@@ -183,6 +226,14 @@ fun MovieDetails(viewModel: MovieDetailsViewModel, item: MovieDetailsDomain) {
         GenresList(item.genres)
         LanguagesList(item.spokenLanguages)
         PopularityView(item)
+    }
+}
+
+private fun onFavoriteChange(isFavorite: Boolean, viewModel: MovieDetailsViewModel) {
+    if (isFavorite) {
+        viewModel.saveMovieToFavorites(viewModel.movie)
+    } else {
+        viewModel.removeMovieToFavorites(viewModel.movie.id)
     }
 }
 
@@ -431,33 +482,3 @@ fun StatusView(item: MovieDetailsDomain) {
         )
     }
 }
-
-
-/*
-@Preview
-@Composable
-fun test() {
-    MovieTHDBTheme {
-        MovieDetails(
-            baseImageUrl = "https://image.tmdb.org/t/p/", item = MovieDetailsDomain(
-                adult = false,
-                genres = mutableListOf(),
-                id = 1029575,
-                originalLanguage = "en",
-                originalTitle = "The Family Plan",
-                overview = "Dan Morgan is many things: a devoted husband, a loving father, a celebrated car salesman. He's also a former assassin. And when his past catches up to his present, he's forced to take his unsuspecting family on a road trip unlike any other.",
-                popularity = 4320.505,
-                posterPath = "a6syn9qcU4a54Lmi3JoIr1XvhFU.jpg",
-                releaseDate = "2023-12-14",
-                revenue = 0,
-                runtime = 0,
-                spokenLanguages = mutableListOf(),
-                status = "",
-                title = "The Family Plan",
-                video = false,
-                voteAverage = 7.395,
-                voteCount = 625
-            )
-        )
-    }
-}*/

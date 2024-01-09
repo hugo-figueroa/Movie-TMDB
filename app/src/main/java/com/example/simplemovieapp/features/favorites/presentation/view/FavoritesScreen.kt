@@ -1,6 +1,7 @@
 package com.example.simplemovieapp.features.favorites.presentation.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -118,7 +119,7 @@ fun FavoritesWithToggle(viewModel: FavoritesViewModel) {
             text = "Favorites",
             textAlign = TextAlign.Center,
             style = TMDBTheme.typography.title1,
-            color = TMDBTheme.colors.primary,
+            color = TMDBTheme.colors.primaryVariant,
             maxLines = 2
         )
 
@@ -126,12 +127,14 @@ fun FavoritesWithToggle(viewModel: FavoritesViewModel) {
             if (isGrid) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.list),
-                    contentDescription = "List View"
+                    contentDescription = "List View",
+                    tint = TMDBTheme.colors.primaryVariant
                 )
             } else {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.grid),
-                    contentDescription = "Grid View"
+                    contentDescription = "Grid View",
+                    tint = TMDBTheme.colors.primaryVariant
                 )
             }
         }
@@ -165,7 +168,10 @@ fun FavoritesVerticalList(
         state = scrollListState
     ) {
         items(listMovies.value) { movie ->
-            FavoritesItem(viewModel.baseImageUrl.plus("w500"), movie)
+            FavoritesItem(
+                viewModel.baseImageUrl.plus("w500"),
+                movie
+            ) { movieId -> viewModel.goToMovieDetails(movieId) }
         }
     }
 }
@@ -181,15 +187,23 @@ fun FavoritesGridList(
         state = scrollGridState
     ) {
         items(listMovies.value) { movie ->
-            FavoritesGridItem(viewModel.baseImageUrl.plus("w500"), movie)
+            FavoritesGridItem(
+                viewModel.baseImageUrl.plus("w500"),
+                movie
+            ) { movieId -> viewModel.goToMovieDetails(movieId) }
         }
     }
 }
 
 @Composable
-fun FavoritesItem(imageBaseUrl: String, item: MovieDetailsDomain) {
+fun FavoritesItem(
+    imageBaseUrl: String,
+    item: MovieDetailsDomain,
+    onItemClick: (movieId: Int) -> Unit
+) {
     Box(
         modifier = Modifier
+            .clickable { onItemClick(item.id) }
             .height(160.dp)
             .fillMaxWidth()
             .padding(
@@ -252,10 +266,15 @@ fun FavoritesItem(imageBaseUrl: String, item: MovieDetailsDomain) {
 }
 
 @Composable
-fun FavoritesGridItem(imageBaseUrl: String, item: MovieDetailsDomain) {
+fun FavoritesGridItem(
+    imageBaseUrl: String,
+    item: MovieDetailsDomain,
+    onItemClick: (movieId: Int) -> Unit
+) {
     Card(
         modifier = Modifier
             .width(180.dp)
+            .clickable { onItemClick(item.id) }
             .padding(TMDBTheme.grids.grid1),
         elevation = TMDBTheme.grids.grid05,
         shape = TMDBTheme.shapes.large
@@ -339,7 +358,7 @@ fun FavoritesEmptyList() {
             text = "Favorites",
             textAlign = TextAlign.Center,
             style = TMDBTheme.typography.title1,
-            color = TMDBTheme.colors.primary,
+            color = TMDBTheme.colors.primaryVariant,
             maxLines = 2
         )
         Text(
@@ -385,7 +404,7 @@ fun previewFavoritesItem() {
                 voteAverage = 7.395,
                 voteCount = 625
             )
-        )
+        ) {}
     }
 }
 
@@ -414,7 +433,7 @@ fun previewFavoritesGridItem() {
                 voteAverage = 7.395,
                 voteCount = 625
             )
-        )
+        ) {}
     }
 }
 

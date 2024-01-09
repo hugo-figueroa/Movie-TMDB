@@ -157,12 +157,14 @@ fun PopularMoviesWithToggle(viewModel: PopularMoviesViewModel) {
             if (isGrid) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.list),
-                    contentDescription = "List View"
+                    contentDescription = "List View",
+                    tint = TMDBTheme.colors.primaryVariant
                 )
             } else {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.grid),
-                    contentDescription = "Grid View"
+                    contentDescription = "Grid View",
+                    tint = TMDBTheme.colors.primaryVariant
                 )
             }
         }

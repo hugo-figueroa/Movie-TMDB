@@ -23,4 +23,7 @@ class MovieDetailsRepository @Inject constructor(
 
     suspend fun removeMovieFromFavorites(movieId: Int): Result<Unit> =
         movieDetailsLocalDataSource.removeMovieFromFavorites(movieId)
+
+    suspend fun isMovieOnFavorites(movieId: Int): Result<Boolean> =
+        movieDetailsLocalDataSource.isMovieOnFavorites(movieId)
 }
