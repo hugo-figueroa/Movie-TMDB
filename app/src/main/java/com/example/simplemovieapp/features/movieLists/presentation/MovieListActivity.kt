@@ -1,7 +1,6 @@
 package com.example.simplemovieapp.features.movieLists.presentation
 
 import android.os.Bundle
-import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -16,6 +15,11 @@ import com.example.simplemovieapp.databinding.ActivityMovieListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+/**
+ * MovieListActivity
+ *
+ * @author (c) 2024, Hugo Figueroa
+ * */
 @AndroidEntryPoint
 class MovieListActivity @Inject constructor() :
     BaseActivity<ActivityMovieListBinding, EmptyViewModel>() {
@@ -33,14 +37,20 @@ class MovieListActivity @Inject constructor() :
         super.onCreate(savedInstanceState)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.movieListContainer) as NavHostFragment
-        val navigator = KeepStateNavigator(this, navHostFragment.childFragmentManager, R.id.movieListContainer)
+        val navigator =
+            KeepStateNavigator(this, navHostFragment.childFragmentManager, R.id.movieListContainer)
         val navController = findNavController(R.id.movieListContainer)
         navController.navigatorProvider += navigator
-        navController.setGraph(R.navigation.nav_graph_movie_list)
+        navController.setGraph(R.navigation.nav_graph_dashboard)
         binding.bottomNavigation.setupWithNavController(navController)
     }
 
-    fun goToHome() {
-        binding.bottomNavigation.selectedItemId = R.id.popularMoviesFragment
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (binding.bottomNavigation.selectedItemId == R.id.nav_graph_home) {
+            finishAfterTransition()
+        } else {
+            binding.bottomNavigation.selectedItemId = R.id.nav_graph_home
+        }
     }
 }

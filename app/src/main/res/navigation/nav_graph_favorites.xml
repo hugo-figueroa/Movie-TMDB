@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_favorites"
+    app:startDestination="@id/favoriteFragment">
+
+    <KeepStateFragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.simplemovieapp.features.favorites.presentation.view.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
+
+</navigation>

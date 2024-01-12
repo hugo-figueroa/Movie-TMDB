@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_dashboard"
+    app:startDestination="@+id/nav_graph_home">
+
+    <include
+        android:id="@+id/nav_graph_home"
+        app:graph="@navigation/nav_graph_home" />
+    <include
+        android:id="@+id/nav_graph_now_playing"
+        app:graph="@navigation/nav_graph_now_playing" />
+    <include
+        android:id="@+id/nav_graph_favorites"
+        app:graph="@navigation/nav_graph_favorites" />
+
+</navigation>

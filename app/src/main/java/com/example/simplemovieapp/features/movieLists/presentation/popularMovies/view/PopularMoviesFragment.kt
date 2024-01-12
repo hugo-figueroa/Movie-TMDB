@@ -2,7 +2,6 @@ package com.example.simplemovieapp.features.movieLists.presentation.popularMovie
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import com.example.core.base.fragment.BaseFragment
 import com.example.core.extensionFunctions.navigateTo
@@ -12,7 +11,6 @@ import com.example.material.MovieTHDBTheme
 import com.example.simplemovieapp.constants.Constants
 import com.example.simplemovieapp.databinding.FragmentPopularMoviesBinding
 import com.example.simplemovieapp.features.movieDetails.presentation.view.MovieDetailsActivity
-import com.example.simplemovieapp.features.movieLists.presentation.MovieListActivity
 import com.example.simplemovieapp.features.movieLists.presentation.popularMovies.viewModel.PopularMoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,10 +40,6 @@ class PopularMoviesFragment() :
                     PopularMoviesScreen(viewModel)
                 }
             }
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            (requireActivity() as MovieListActivity).finishAffinity()
         }
     }
 
