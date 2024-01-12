@@ -6,10 +6,8 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.core.base.viewModel.BaseViewModel
-import com.example.core.models.NavigationEvent
 import com.example.core.models.Result
 import com.example.core.utils.SingleLiveEvent
-import com.example.simplemovieapp.R
 import com.example.simplemovieapp.features.movieLists.domain.models.ListMoviesDomain
 import com.example.simplemovieapp.features.movieLists.domain.models.MovieDomain
 import com.example.simplemovieapp.features.movieLists.domain.useCases.GetBaseImageUrlUseCase
@@ -92,8 +90,7 @@ class PopularMoviesViewModel @Inject constructor(
 
     fun goToMovieDetails(movieId: Int) {
         this.movieId = movieId
-        onNavigationEventMLD.value =
-            NavigationEvent(R.id.action_popularMoviesFragment_to_movieDetailsFragment)
+        onNavigationEventMLD.value = Unit
     }
 }
 

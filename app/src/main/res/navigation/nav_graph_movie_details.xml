@@ -2,7 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph_movie_details">
+    android:id="@+id/nav_graph_movie_details"
+    app:startDestination="@id/movieDetailFragment">
 
     <fragment
         android:id="@+id/movieDetailFragment"
@@ -13,4 +14,5 @@
         app:popEnterAnim="@anim/enter_from_left"
         app:popExitAnim="@anim/exit_to_right"
         tools:layout="@layout/fragment_movie_details" />
+
 </navigation>

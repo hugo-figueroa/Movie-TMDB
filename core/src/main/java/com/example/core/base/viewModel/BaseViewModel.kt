@@ -14,8 +14,8 @@ import com.example.core.models.NavigationEvent
  * */
 abstract class BaseViewModel: ViewModel() {
 
-    val onNavigationEventMLD: SingleLiveEvent<NavigationEvent> = SingleLiveEvent()
-    val onNavigationEvent get(): LiveData<NavigationEvent> = onNavigationEventMLD
+    val onNavigationEventMLD: SingleLiveEvent<Unit> = SingleLiveEvent()
+    val onNavigationEvent get(): LiveData<Unit> = onNavigationEventMLD
 
     @CallSuper
     open fun setUp(bundle: Bundle?) {}

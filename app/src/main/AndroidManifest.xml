@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
-        android:name="com.example.simplemovieapp.MovieTMDBApplication"
+        android:name=".MovieTMDBApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,6 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleMovieApp"
         tools:targetApi="31">
+        <activity
+            android:name=".features.movieDetails.presentation.view.MovieDetailsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/TMDB.NoActionBar" />
         <activity
             android:name=".features.splash.presentation.view.SplashActivity"
             android:exported="true"

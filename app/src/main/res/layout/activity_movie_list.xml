@@ -24,6 +24,7 @@
         android:layout_height="@dimen/bottomNavigationHeight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/movieListContainer"
+        android:background="?android:attr/windowBackground"
         app:menu="@menu/bottom_navigation_bar_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
